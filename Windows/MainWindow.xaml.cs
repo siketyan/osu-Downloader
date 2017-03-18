@@ -1,6 +1,6 @@
 ﻿using System.Windows;
 
-namespace osu_Downloader
+namespace osu_Downloader.Windows
 {
     /// <summary>
     /// MainWindow.xaml の相互作用ロジック
