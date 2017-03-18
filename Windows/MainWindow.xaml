@@ -3,9 +3,62 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525">
+        mc:Ignorable="d" BorderBrush="#B17" BorderThickness="1"
+        Title="osu! Downloader" Height="591" Width="1076">
+    <WindowChrome.WindowChrome>
+        <WindowChrome CaptionHeight="64" />
+    </WindowChrome.WindowChrome>
     <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="64" />
+            <RowDefinition />
+        </Grid.RowDefinitions>
 
+        <Grid>
+            <Grid.Background>
+                <ImageBrush ImageSource="../Resources/bar.png" Stretch="None"
+                            TileMode="Tile" Viewport="0,0,640,128" ViewportUnits="Absolute" />
+            </Grid.Background>
+
+            <DockPanel LastChildFill="False" Margin="20,10">
+                <Image>
+                    <Image.Source>
+                        <BitmapImage UriSource="../Resources/downloader.png"
+                                     DecodePixelWidth="54" DecodePixelHeight="54" />
+                    </Image.Source>
+                </Image>
+                <TextBox WindowChrome.IsHitTestVisibleInChrome="True" Margin="15,5"
+                         Width="256" Background="Transparent" FontSize="16" />
+            </DockPanel>
+        </Grid>
+
+        <Grid Grid.Row="1">
+            <Grid.Background>
+                <ImageBrush ImageSource="../Resources/background.png" Stretch="None"
+                            TileMode="Tile" Viewport="0,0,640,360" ViewportUnits="Absolute" />
+            </Grid.Background>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="256" />
+                <ColumnDefinition />
+                <ColumnDefinition Width="256" />
+            </Grid.ColumnDefinitions>
+
+            <DockPanel Grid.Column="0">
+                <Label DockPanel.Dock="Top" Padding="15,10" FontSize="18">Search Result</Label>
+            </DockPanel>
+
+            <ScrollViewer Grid.Column="1" Background="#FFF" BorderThickness="10,0">
+                <ScrollViewer.BorderBrush>
+                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                        <GradientStop Color="Black" Offset="0"/>
+                        <GradientStop Offset="1"/>
+                    </LinearGradientBrush>
+                </ScrollViewer.BorderBrush>
+            </ScrollViewer>
+            
+            <DockPanel Grid.Column="2">
+                <Label DockPanel.Dock="Top" Padding="15,10" FontSize="18">Downloads</Label>
+            </DockPanel>
+        </Grid>
     </Grid>
 </Window>
