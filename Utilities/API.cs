@@ -1,9 +1,11 @@
 ﻿using Newtonsoft.Json;
 using osu_Downloader.Objects;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Text;
+using System.Text.RegularExpressions;
 
 namespace osu_Downloader.Utilities
 {
@@ -32,21 +34,49 @@ namespace osu_Downloader.Utilities
             }
         }
 
-        private string Post(string url, Dictionary<string, string> parameters)
+        private static Tuple<string,string> Post(string url, Dictionary<string, string> parameters)
         {
             using (var wc = new WebClient())
             {
-                wc.Headers.Add("Content-Type", "application/x-www-form-urlencoded");
+                var data = wc.UploadData(
+                               baseURL + url, "POST",
+                               Encoding.ASCII.GetBytes(
+                                   string.Join(
+                                       "&",
+                                       parameters.Select(
+                                           p => string.Join("=", p.Key, p.Value)
+                                       )
+                                   )
+                               )
+                           );
+                var cookie = wc.ResponseHeaders[HttpResponseHeader.SetCookie];
 
-                byte[] request = Encoding.ASCII.GetBytes(
-                                     string.Join(
-                                         "&", parameters.Select(p => p.Key + "=" + p.Value)
-                                     )
-                                 );
-                byte[] response = wc.UploadData(baseURL + url, "POST", request);
-
-                return Encoding.ASCII.GetString(response);
+                return new Tuple<string, string>(Encoding.UTF8.GetString(data), cookie);
             }
+        }
+
+        public static LoginResponse Login(string username, string password)
+        {
+            var response = Post(
+                               "users/login",
+                               new Dictionary<string, string>
+                               {
+                                   {"username", username},
+                                   {"password", password}
+                               }
+                           );
+
+            var sessionID = Regex.Split(response.Item2, "(?<!expires=.{3}),")
+                                 .Select(s => s.Split(';').First().Split('='))
+                                 .Select(xs => new { Name = xs.First(), Value = string.Join("=", xs.Skip(1).ToArray()) })
+                                 .Where(a => a.Name == "osu_session")
+                                 .FirstOrDefault()
+                                 .Value;
+
+            var data = JsonConvert.DeserializeObject<LoginResponse>(response.Item1);
+            data.SessionID = sessionID;
+
+            return data;
         }
 
         public Beatmap[] Search(string query,

@@ -75,6 +75,8 @@
       <SubType>Designer</SubType>
     </Page>
     <Compile Include="Objects\Beatmap.cs" />
+    <Compile Include="Objects\LoginResponse.cs" />
+    <Compile Include="Objects\User.cs" />
     <Compile Include="Utilities\API.cs" />
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
