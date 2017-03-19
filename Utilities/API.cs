@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Web;
 
 namespace osu_Downloader.Utilities
 {
@@ -28,7 +29,14 @@ namespace osu_Downloader.Utilities
                 return wc.DownloadString(
                            baseURL + url + "?"
                                + string.Join(
-                                     "&", parameters.Select(p => p.Key + "=" + p.Value)
+                                     "&", 
+                                     parameters.Select(
+                                         p => string.Join(
+                                                  "=",
+                                                  HttpUtility.UrlEncode(p.Key),
+                                                  HttpUtility.UrlEncode(p.Value)
+                                              )
+                                     )
                                  )
                        );
             }
@@ -44,7 +52,11 @@ namespace osu_Downloader.Utilities
                                    string.Join(
                                        "&",
                                        parameters.Select(
-                                           p => string.Join("=", p.Key, p.Value)
+                                           p => string.Join(
+                                                    "=",
+                                                    HttpUtility.UrlEncode(p.Key),
+                                                    HttpUtility.UrlEncode(p.Value)
+                                                )
                                        )
                                    )
                                )
