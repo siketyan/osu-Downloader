@@ -46,9 +46,11 @@ namespace osu_Downloader.Utilities
         {
             using (var wc = new WebClient())
             {
+                wc.Headers.Add("Content-Type", "application/x-www-form-urlencoded");
+
                 var data = wc.UploadData(
                                baseURL + url, "POST",
-                               Encoding.ASCII.GetBytes(
+                               Encoding.UTF8.GetBytes(
                                    string.Join(
                                        "&",
                                        parameters.Select(
