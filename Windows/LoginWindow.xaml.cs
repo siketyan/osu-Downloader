@@ -1,5 +1,6 @@
 ﻿using osu_Downloader.Objects;
 using osu_Downloader.Utilities;
+using System;
 using System.Windows;
 
 namespace osu_Downloader.Windows
@@ -19,7 +20,16 @@ namespace osu_Downloader.Windows
         private async void Login(object sender, RoutedEventArgs e)
         {
             LoginButton.IsEnabled = false;
-            Response = await API.LoginAsync(Username.Text, Password.Password);
+
+            try
+            {
+                Response = await API.LoginAsync(Username.Text, Password.Password);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Couldn't log into osu!.\nCheck the network connection, username and password.\n" + ex.Message);
+            }
+
             Close();
         } 
     }
