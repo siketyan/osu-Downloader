@@ -94,7 +94,7 @@ namespace osu_Downloader.Utilities
             return data;
         }
 
-        private async Task<LoginResponse> LoginAsync(string username, string password)
+        public async Task<LoginResponse> LoginAsync(string username, string password)
         {
             return await Task.Run(() => Login(username, password);
         }
@@ -119,7 +119,7 @@ namespace osu_Downloader.Utilities
                    );
         }
 
-        private async Task<Beatmap[]> SearchAsync(string query,
+        public async Task<Beatmap[]> SearchAsync(string query,
                                                   GameModeSearchOption mode = GameModeSearchOption.Osu,
                                                   RankStatusSearchOption status = RankStatusSearchOption.Any,
                                                   GenreSearchOption? genre = null,
