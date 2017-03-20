@@ -8,6 +8,7 @@
     <WindowChrome.WindowChrome>
         <WindowChrome CaptionHeight="64" />
     </WindowChrome.WindowChrome>
+    
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="64" />
@@ -79,7 +80,7 @@
                                     </Image>
                                     <StackPanel Margin="5">
                                         <Label FontSize="16" Padding="2,0,2,2">
-                                            <TextBlock TextWrapping="NoWrap" TextTrimming="CharacterEllipsis">Youkoso JAPARI PARK e (TV size ver.)</TextBlock>
+                                            <TextBlock TextWrapping="NoWrap" TextTrimming="CharacterEllipsis" Text="{Binding Title}" />
                                         </Label>
                                         <StackPanel Orientation="Horizontal"  Margin="2">
                                             <Label Padding="0" Content="{Binding Artist}" />
@@ -110,8 +111,67 @@
 
                     <Border Grid.Column="1" Background="#FFF" Margin="10,15">
                         <Border.Effect>
-                            <DropShadowEffect Color="#CC999393" Opacity="0.4" Direction="0" ShadowDepth="0" BlurRadius="10" />
+                            <DropShadowEffect Color="#CC999393" Opacity="0.4"
+                                              Direction="0" ShadowDepth="0" BlurRadius="10" />
                         </Border.Effect>
+
+                        <StackPanel>
+                            <Grid>
+                                <Image Source="{Binding Result[0].Covers.Card2xUrl}">
+                                    <Image.OpacityMask>
+                                        <LinearGradientBrush>
+                                            <LinearGradientBrush.Transform>
+                                                <RotateTransform Angle="75" />
+                                            </LinearGradientBrush.Transform>
+
+                                            <GradientStop Color="White"/>
+                                            <GradientStop Offset="0.24"/>
+                                        </LinearGradientBrush>
+                                    </Image.OpacityMask>
+                                </Image>
+                                <DockPanel LastChildFill="False" Margin="20,10">
+                                    <DockPanel.Effect>
+                                        <DropShadowEffect Color="#CC999393" Opacity="0.8" Direction="0" ShadowDepth="0" BlurRadius="10" />
+                                    </DockPanel.Effect>
+
+                                    <Button Template="{StaticResource IconButton}" FontSize="32"></Button>
+                                    <Button DockPanel.Dock="Right" FontSize="32"
+                                            Template="{StaticResource IconButton}">
+                                        <TextBlock TextAlignment="Center">
+                                            <Run FontFamily="../Resources/#FontAwesome"
+                                                 Foreground="#FFF"></Run>
+                                            <LineBreak />
+                                            <Run FontFamily="../Resources/#Exo 2.0"
+                                                 Foreground="#FFF" FontSize="12">No Video</Run>
+                                        </TextBlock>
+                                    </Button>
+                                    <Button DockPanel.Dock="Right" FontSize="32"
+                                            Template="{StaticResource IconButton}"></Button>
+                                </DockPanel>
+                            </Grid>
+                            <StackPanel Margin="15,0">
+                                <Label FontSize="22" Content="{Binding Result[0].Title}" />
+                                <Label FontSize="18"  Content="{Binding Result[0].Artist}" Padding="5,0,5,5" />
+                                <Label Padding="5,5,5,3">
+                                    <TextBlock>
+                                        <Run>Creator: </Run>
+                                        <Run Text="{Binding Result[0].Creator}" />
+                                    </TextBlock>
+                                </Label>
+                                <Label Padding="5,3">
+                                    <TextBlock>
+                                        <Run>Source: </Run>
+                                        <Run Text="{Binding Result[0].Source}" />
+                                    </TextBlock>
+                                </Label>
+                                <Label Padding="5,3">
+                                    <DockPanel>
+                                        <TextBlock Margin="0,0,4,0">Tags:</TextBlock>
+                                        <TextBlock Text="{Binding Result[0].Tags}" TextWrapping="Wrap" />
+                                    </DockPanel>
+                                </Label>
+                            </StackPanel>
+                        </StackPanel>
                     </Border>
                 </Grid>
             </ScrollViewer>

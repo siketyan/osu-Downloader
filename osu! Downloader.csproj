@@ -111,6 +111,7 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
+    <Resource Include="Resources\FontAwesome.otf" />
     <Resource Include="Resources\Exo2.0-Regular.otf" />
   </ItemGroup>
   <ItemGroup>
