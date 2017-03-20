@@ -28,6 +28,7 @@ namespace osu_Downloader.Windows
             catch (Exception ex)
             {
                 MessageBox.Show("Couldn't log into osu!.\nCheck the network connection, username and password.\n" + ex.Message);
+                return;
             }
 
             Close();
