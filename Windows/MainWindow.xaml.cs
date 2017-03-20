@@ -19,8 +19,11 @@ namespace osu_Downloader.Windows
         {
             InitializeComponent();
 
-            var response = API.Login("Siketyan", "**********");
-	    api = new API(response.SessionID);
+            var window = new LoginWindow();
+            window.ShowDialog();
+
+            var response = window.Response;
+	        api = new API(response.SessionID);
             Result = new ObservableCollection<Beatmap>();
 
             foreach (var beatmap in api.Search("ppp"))
