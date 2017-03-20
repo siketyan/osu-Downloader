@@ -61,63 +61,69 @@
 
             <DockPanel Grid.Column="0">
                 <Label DockPanel.Dock="Top" Padding="15,15,0,5" FontSize="18">Search Result</Label>
-                <ListBox Background="Transparent" BorderThickness="0" Padding="10,0"
-                         HorizontalContentAlignment="Stretch" ItemsSource="{Binding Result}">
-                    <ListBox.Template>
-                        <ControlTemplate TargetType="ItemsControl">
-                            <ItemsPresenter Margin="10,0" />
-                        </ControlTemplate>
-                    </ListBox.Template>
-                    <ListBox.ItemsPanel>
-                        <ItemsPanelTemplate>
-                            <VirtualizingStackPanel VirtualizationMode="Recycling" IsVirtualizing="True" />
-                        </ItemsPanelTemplate>
-                    </ListBox.ItemsPanel>
-                    <ListBox.ItemTemplate>
-                        <DataTemplate>
-                            <Border Background="#FFF" Margin="0,3">
-                                <Border.Effect>
-                                    <DropShadowEffect Color="#CC999393" Opacity="0.4" Direction="0" ShadowDepth="0" BlurRadius="10" />
-                                </Border.Effect>
+                <ScrollViewer Style="{StaticResource CustomScrollViewerStyle}"
+                              HorizontalScrollBarVisibility="Disabled"
+                              VerticalScrollBarVisibility="Visible"
+                              HorizontalContentAlignment="Stretch">
+                    <ListBox Background="Transparent" BorderThickness="0"
+                             HorizontalContentAlignment="Stretch" ItemsSource="{Binding Result}">
+                        <ListBox.Template>
+                            <ControlTemplate TargetType="ItemsControl">
+                                <ItemsPresenter Margin="10,0" />
+                            </ControlTemplate>
+                        </ListBox.Template>
+                        <ListBox.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <VirtualizingStackPanel VirtualizationMode="Recycling" IsVirtualizing="True" />
+                            </ItemsPanelTemplate>
+                        </ListBox.ItemsPanel>
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <Border Background="#FFF" Margin="0,3">
+                                    <Border.Effect>
+                                        <DropShadowEffect Color="#CC999393" Opacity="0.4" Direction="0" ShadowDepth="0" BlurRadius="10" />
+                                    </Border.Effect>
 
-                                <DockPanel>
-                                    <Image Width="72" Stretch="UniformToFill"
-                                           Source="{Binding Covers.List2xUrl}">
-                                        <Image.OpacityMask>
-                                            <LinearGradientBrush>
-                                                <LinearGradientBrush.Transform>
-                                                    <RotateTransform Angle="315" />
-                                                </LinearGradientBrush.Transform>
+                                    <DockPanel>
+                                        <Image Width="72" Stretch="UniformToFill"
+                                               Source="{Binding Covers.List2xUrl}">
+                                            <Image.OpacityMask>
+                                                <LinearGradientBrush>
+                                                    <LinearGradientBrush.Transform>
+                                                        <RotateTransform Angle="315" />
+                                                    </LinearGradientBrush.Transform>
 
-                                                <GradientStop Color="White"/>
-                                                <GradientStop Offset="0.44"/>
-                                            </LinearGradientBrush>
-                                        </Image.OpacityMask>
-                                    </Image>
-                                    <StackPanel Margin="5">
-                                        <Label FontSize="16" Padding="2,0,2,2">
-                                            <TextBlock TextWrapping="NoWrap" TextTrimming="CharacterEllipsis" Text="{Binding Title}" />
-                                        </Label>
-                                        <StackPanel Orientation="Horizontal"  Margin="2">
-                                            <Label Padding="0" Content="{Binding Artist}" />
-                                            <Label Padding="0"> / </Label>
-                                            <Label Padding="0" Content="{Binding Creator}" />
+                                                    <GradientStop Color="White"/>
+                                                    <GradientStop Offset="0.44"/>
+                                                </LinearGradientBrush>
+                                            </Image.OpacityMask>
+                                        </Image>
+                                        <StackPanel Margin="5">
+                                            <Label FontSize="16" Padding="2,0,2,2">
+                                                <TextBlock TextWrapping="NoWrap" TextTrimming="CharacterEllipsis" Text="{Binding Title}" />
+                                            </Label>
+                                            <StackPanel Orientation="Horizontal"  Margin="2">
+                                                <Label Padding="0" Content="{Binding Artist}" />
+                                                <Label Padding="0">/</Label>
+                                                <Label Padding="0" Content="{Binding Creator}" />
+                                            </StackPanel>
+                                            <StackPanel Orientation="Horizontal" Margin="2,3,2,4">
+                                                <Label Padding="0">▶</Label>
+                                                <Label Padding="0" Content="{Binding PlayCount}" />
+                                                <Label Padding="0">♥</Label>
+                                                <Label Padding="0" Content="{Binding FavouriteCount}" />
+                                            </StackPanel>
                                         </StackPanel>
-                                        <StackPanel Orientation="Horizontal" Margin="2,3,2,4">
-                                            <Label Padding="0">▶</Label>
-                                            <Label Padding="0" Content="{Binding PlayCount}" />
-                                            <Label Padding="0">♥</Label>
-                                            <Label Padding="0" Content="{Binding FavouriteCount}" />
-                                        </StackPanel>
-                                    </StackPanel>
-                                </DockPanel>
-                            </Border>
-                        </DataTemplate>
-                    </ListBox.ItemTemplate>
-                </ListBox>
+                                    </DockPanel>
+                                </Border>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                </ScrollViewer>
             </DockPanel>
 
-            <ScrollViewer Grid.Column="1">
+            <ScrollViewer Grid.Column="1" Style="{StaticResource CustomScrollViewerStyle}"
+                      HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Visible">
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition />
