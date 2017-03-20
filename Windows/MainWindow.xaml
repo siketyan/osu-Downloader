@@ -5,7 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:l="clr-namespace:Loaders;assembly=MrMitch.Loaders"
         mc:Ignorable="d" BorderBrush="#B17" BorderThickness="1"
-        Title="osu! Downloader" Height="591" Width="1076">
+        Title="osu! Downloader" Height="591" Width="1076"
+        Icon="../Resources/downloader.ico">
     <WindowChrome.WindowChrome>
         <WindowChrome CaptionHeight="64" />
     </WindowChrome.WindowChrome>
