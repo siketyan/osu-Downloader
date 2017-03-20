@@ -18,7 +18,7 @@ namespace osu_Downloader.Objects
         public Country Country { get; set; }
 
         [JsonProperty("age")]
-        public int Age { get; set; }
+        public int? Age { get; set; }
 
         [JsonProperty("avatarUrl")]
         public string AvatarURL { get; set; }
