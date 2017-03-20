@@ -1,17 +1,23 @@
 ﻿using osu_Downloader.Objects;
 using osu_Downloader.Utilities;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 
 namespace osu_Downloader.Windows
 {
     /// <summary>
     /// MainWindow.xaml の相互作用ロジック
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class MainWindow : Window, INotifyPropertyChanged
     {
+        public event PropertyChangedEventHandler PropertyChanged;
+
         public ObservableCollection<Beatmap> Result { get; set; }
+        public Beatmap Selected { get; set; }
 
         private API api;
 
@@ -34,7 +40,7 @@ namespace osu_Downloader.Windows
             DataContext = this;
         }
 
-        public async void Search(object sender, RoutedEventArgs e)
+        private async void Search(object sender, RoutedEventArgs e)
         {
             ((Button)sender).IsEnabled = false;
             Loader.Visibility = Visibility.Visible;
@@ -48,6 +54,20 @@ namespace osu_Downloader.Windows
 
             Loader.Visibility = Visibility.Hidden;
             ((Button)sender).IsEnabled = true;
+        }
+
+        private void SelectBeatmap(object sender, MouseButtonEventArgs e)
+        {
+            var id = (long)((Border)sender).Tag;
+            Selected = Result.Where(b => b.ID == id)
+                             .FirstOrDefault();
+
+            OnPropertyChanged("Selected");
+        }
+
+        private void OnPropertyChanged(string name)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
         }
     }
 }

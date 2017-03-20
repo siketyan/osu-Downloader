@@ -79,7 +79,8 @@
                         </ListBox.ItemsPanel>
                         <ListBox.ItemTemplate>
                             <DataTemplate>
-                                <Border Background="#FFF" Margin="0,3">
+                                <Border Background="#FFF" Margin="0,3" Tag="{Binding ID}"
+                                        MouseLeftButtonDown="SelectBeatmap" Cursor="Hand">
                                     <Border.Effect>
                                         <DropShadowEffect Color="#CC999393" Opacity="0.4" Direction="0" ShadowDepth="0" BlurRadius="10" />
                                     </Border.Effect>
@@ -139,7 +140,7 @@
 
                         <StackPanel>
                             <Grid>
-                                <Image Source="{Binding Result[0].Covers.Card2xUrl}">
+                                <Image Source="{Binding Selected.Covers.Card2xUrl}">
                                     <Image.OpacityMask>
                                         <LinearGradientBrush>
                                             <LinearGradientBrush.Transform>
@@ -175,24 +176,24 @@
                                 </DockPanel>
                             </Grid>
                             <StackPanel Margin="15,0">
-                                <Label FontSize="22" Content="{Binding Result[0].Title}" />
-                                <Label FontSize="18"  Content="{Binding Result[0].Artist}" Padding="5,0,5,5" />
+                                <Label FontSize="22" Content="{Binding Selected.Title}" />
+                                <Label FontSize="18"  Content="{Binding Selected.Artist}" Padding="5,0,5,5" />
                                 <Label Padding="5,5,5,3">
                                     <TextBlock>
                                         <Run>Creator: </Run>
-                                        <Run Text="{Binding Result[0].Creator}" />
+                                        <Run Text="{Binding Selected.Creator}" />
                                     </TextBlock>
                                 </Label>
                                 <Label Padding="5,3">
                                     <TextBlock>
                                         <Run>Source: </Run>
-                                        <Run Text="{Binding Result[0].Source}" />
+                                        <Run Text="{Binding Selected.Source}" />
                                     </TextBlock>
                                 </Label>
                                 <Label Padding="5,3">
                                     <DockPanel>
                                         <TextBlock Margin="0,0,4,0">Tags:</TextBlock>
-                                        <TextBlock Text="{Binding Result[0].Tags}" TextWrapping="Wrap" />
+                                        <TextBlock Text="{Binding Selected.Tags}" TextWrapping="Wrap" />
                                     </DockPanel>
                                 </Label>
                             </StackPanel>
