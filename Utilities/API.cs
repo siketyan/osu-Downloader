@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 using System.Web;
 
 namespace osu_Downloader.Utilities
@@ -93,6 +94,11 @@ namespace osu_Downloader.Utilities
             return data;
         }
 
+        private async Task<LoginResponse> LoginAsync(string username, string password)
+        {
+            return await Task.Run(() => Login(username, password);
+        }
+
         public Beatmap[] Search(string query,
                                 GameModeSearchOption mode = GameModeSearchOption.Osu,
                                 RankStatusSearchOption status = RankStatusSearchOption.Any,
@@ -111,6 +117,16 @@ namespace osu_Downloader.Utilities
             return JsonConvert.DeserializeObject<Beatmap[]>(
                        Get("beatmapsets/search", parameters)
                    );
+        }
+
+        private async Task<Beatmap[]> SearchAsync(string query,
+                                                  GameModeSearchOption mode = GameModeSearchOption.Osu,
+                                                  RankStatusSearchOption status = RankStatusSearchOption.Any,
+                                                  GenreSearchOption? genre = null,
+                                                  LanguageSearchOption? language = null,
+                                                  ExtraSearchOption? extra = null)
+        {
+            return await Task.Run(() => Search(query, mode, status, genre, language, extra));
         }
     }
 
