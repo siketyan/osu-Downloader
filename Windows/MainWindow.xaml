@@ -3,6 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:l="clr-namespace:Loaders;assembly=MrMitch.Loaders"
         mc:Ignorable="d" BorderBrush="#B17" BorderThickness="1"
         Title="osu! Downloader" Height="591" Width="1076">
     <WindowChrome.WindowChrome>
@@ -28,8 +29,22 @@
                                      DecodePixelWidth="54" DecodePixelHeight="54" />
                     </Image.Source>
                 </Image>
-                <TextBox WindowChrome.IsHitTestVisibleInChrome="True" Margin="15,5"
+                <TextBox x:Name="Query" WindowChrome.IsHitTestVisibleInChrome="True" Margin="15,5,5,5"
                          Width="256" Background="Transparent" FontSize="16" />
+                <Grid>
+                    <Button Template="{StaticResource IconButton}" FontSize="14"
+                            WindowChrome.IsHitTestVisibleInChrome="True"
+                            Cursor="Hand" Click="Search" Margin="10"></Button>
+                    <l:ChromeLoader x:Name="Loader" Foreground="#FFF"
+                                    Width="32" Height="32" Visibility="Hidden" />
+                </Grid>
+                <ComboBox Background="Transparent" Width="72" Height="23"
+                          Margin="5,0" SelectedIndex="0">
+                    <ComboBoxItem>osu!</ComboBoxItem>
+                    <ComboBoxItem>osu!taiko</ComboBoxItem>
+                    <ComboBoxItem>osu!catch</ComboBoxItem>
+                    <ComboBoxItem>osu!mania</ComboBoxItem>
+                </ComboBox>
             </DockPanel>
         </Grid>
 
@@ -129,14 +144,16 @@
                                         </LinearGradientBrush>
                                     </Image.OpacityMask>
                                 </Image>
-                                <DockPanel LastChildFill="False" Margin="20,10">
+                                <DockPanel LastChildFill="False" Margin="20,15">
                                     <DockPanel.Effect>
                                         <DropShadowEffect Color="#CC999393" Opacity="0.8" Direction="0" ShadowDepth="0" BlurRadius="10" />
                                     </DockPanel.Effect>
 
-                                    <Button Template="{StaticResource IconButton}" FontSize="32"></Button>
+                                    <Button Template="{StaticResource IconButton}"
+                                            FontSize="32" VerticalAlignment="Top"></Button>
                                     <Button DockPanel.Dock="Right" FontSize="32"
-                                            Template="{StaticResource IconButton}">
+                                            Template="{StaticResource IconButton}"
+                                            VerticalAlignment="Top">
                                         <TextBlock TextAlignment="Center">
                                             <Run FontFamily="../Resources/#FontAwesome"
                                                  Foreground="#FFF"></Run>
@@ -146,7 +163,8 @@
                                         </TextBlock>
                                     </Button>
                                     <Button DockPanel.Dock="Right" FontSize="32"
-                                            Template="{StaticResource IconButton}"></Button>
+                                            Template="{StaticResource IconButton}"
+                                            VerticalAlignment="Top"></Button>
                                 </DockPanel>
                             </Grid>
                             <StackPanel Margin="15,0">

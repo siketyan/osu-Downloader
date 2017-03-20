@@ -2,6 +2,7 @@
 using osu_Downloader.Utilities;
 using System.Collections.ObjectModel;
 using System.Windows;
+using System.Windows.Controls;
 
 namespace osu_Downloader.Windows
 {
@@ -19,7 +20,7 @@ namespace osu_Downloader.Windows
             InitializeComponent();
 
             var response = API.Login("Siketyan", "**********");
-            api = new API(response.SessionID);
+	    api = new API(response.SessionID);
             Result = new ObservableCollection<Beatmap>();
 
             foreach (var beatmap in api.Search("ppp"))
@@ -28,6 +29,22 @@ namespace osu_Downloader.Windows
             }
 
             DataContext = this;
+        }
+
+        public async void Search(object sender, RoutedEventArgs e)
+        {
+            ((Button)sender).IsEnabled = false;
+            Loader.Visibility = Visibility.Visible;
+            Result.Clear();
+
+            var beatmaps = await api.SearchAsync(Query.Text);
+            foreach (var beatmap in beatmaps)
+            {
+                Result.Add(beatmap);
+            }
+
+            Loader.Visibility = Visibility.Hidden;
+            ((Button)sender).IsEnabled = true;
         }
     }
 }

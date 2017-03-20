@@ -4,7 +4,7 @@
         <Setter Property="FontFamily" Value="Resources/#Exo 2.0" />
         <Setter Property="Foreground" Value="#333" />
     </Style>
-    
+
     <Style TargetType="{x:Type TextBox}">
         <Setter Property="FontFamily" Value="Resources/#Exo 2.0" />
         <Setter Property="Foreground" Value="#FFF" />
@@ -31,10 +31,62 @@
         </Setter>
     </Style>
 
+    <Style TargetType="{x:Type ComboBox}">
+        <Setter Property="Foreground" Value="#FFF" />
+        <Setter Property="FontFamily" Value="Resources/#Exo 2.0" />
+        <Setter Property="WindowChrome.IsHitTestVisibleInChrome" Value="True" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ComboBox">
+                    <Grid>
+                        <ToggleButton Grid.Column="2" Focusable="false"
+                                      IsChecked="{Binding Path=IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}" >
+                            <ToggleButton.Template>
+                                <ControlTemplate>
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="5*" />
+                                            <ColumnDefinition Width="*" />
+                                        </Grid.ColumnDefinitions>
+                                        <Border x:Name="Border" Grid.ColumnSpan="2" />
+                                        <Path x:Name="Arrow" Grid.Column="1" Fill="#FFF" Data="M 0 0 L 4 4 L 8 0 Z"
+                                              HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                    </Grid>
+                                </ControlTemplate>
+                            </ToggleButton.Template>
+                        </ToggleButton>
+                        <ContentPresenter Name="ContentSite" IsHitTestVisible="False" Margin="3"
+                                          Content="{TemplateBinding SelectionBoxItem}"
+                                          ContentTemplate="{TemplateBinding SelectionBoxItemTemplate}"
+                                          ContentTemplateSelector="{TemplateBinding ItemTemplateSelector}" />
+                        <TextBox x:Name="PART_EditableTextBox" Visibility="Hidden" IsReadOnly="{TemplateBinding IsReadOnly}"/>
+                        <Popup Name="Popup" Placement="Bottom" IsOpen="{TemplateBinding IsDropDownOpen}"
+                               AllowsTransparency="True" Focusable="False" PopupAnimation="Slide">
+                            <Grid Name="DropDown" SnapsToDevicePixels="True"
+                                  MinWidth="{TemplateBinding ActualWidth}"
+                                  MaxHeight="{TemplateBinding MaxDropDownHeight}">
+                                <Border x:Name="DropDownBorder" Background="#B2000000" />
+                                <ScrollViewer SnapsToDevicePixels="True">
+                                    <StackPanel IsItemsHost="True" />
+                                </ScrollViewer>
+                            </Grid>
+                        </Popup>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="{x:Type ComboBoxItem}">
+        <Setter Property="Foreground" Value="#FFF" />
+        <Setter Property="FontFamily" Value="Resources/#Exo 2.0" />
+    </Style>
+
     <ControlTemplate x:Key="IconButton" TargetType="{x:Type Button}">
         <Label Content="{TemplateBinding Content}"
                FontSize="{TemplateBinding FontSize}"
                FontFamily="Resources/#FontAwesome"
-               Foreground="#FFF"/>
+               Foreground="#FFF"
+               VerticalContentAlignment="Center"/>
     </ControlTemplate>
 </ResourceDictionary>
