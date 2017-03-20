@@ -94,9 +94,9 @@ namespace osu_Downloader.Utilities
             return data;
         }
 
-        public async Task<LoginResponse> LoginAsync(string username, string password)
+        public static async Task<LoginResponse> LoginAsync(string username, string password)
         {
-            return await Task.Run(() => Login(username, password);
+            return await Task.Run(() => Login(username, password));
         }
 
         public Beatmap[] Search(string query,
