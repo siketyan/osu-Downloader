@@ -1,7 +1,9 @@
-﻿using osu_Downloader.Objects;
+﻿using Newtonsoft.Json;
+using osu_Downloader.Objects;
 using osu_Downloader.Utilities;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.IO;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
@@ -20,22 +22,30 @@ namespace osu_Downloader.Windows
         public Beatmap Selected { get; set; }
 
         private API api;
+        private Config config;
 
         public MainWindow()
         {
             InitializeComponent();
 
-            var window = new LoginWindow();
-            window.ShowDialog();
-
-            var response = window.Response;
-	        api = new API(response.SessionID);
-            Result = new ObservableCollection<Beatmap>();
-
-            foreach (var beatmap in api.Search("ppp"))
+            if (File.Exists("config.json"))
             {
-                Result.Add(beatmap);
+                config = Config.Open();
             }
+            else
+            {
+                config = new Config();
+
+                var window = new LoginWindow();
+                window.ShowDialog();
+
+                var response = window.Response;
+                config.SessionID = response.SessionID;
+                config.Save();
+            }
+
+	        api = new API(config.SessionID);
+            Result = new ObservableCollection<Beatmap>();
 
             DataContext = this;
         }
