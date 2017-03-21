@@ -3,6 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:l="clr-namespace:Loaders;assembly=MrMitch.Loaders"
         mc:Ignorable="d"
         Title="Login" Height="225" Width="340" SizeToContent="Height"
         Icon="../Resources/downloader.ico" KeyDown="OnKeyDown">
@@ -64,18 +65,23 @@
             <TextBox x:Name="Username" Height="24" Foreground="#000" Padding="10,0" />
             <Label Margin="0,15,0,0">Password</Label>
             <PasswordBox x:Name="Password" Height="24" Foreground="#000" Padding="10,0" />
-            <Button x:Name="LoginButton" Margin="0,20,0,10" Cursor="Hand" Click="Login">
-                <Button.Template>
-                    <ControlTemplate>
-                        <Grid>
-                            <Ellipse Width="32" Height="32" Stroke="#B17" />
-                            <Label FontFamily="../Resources/#FontAwesome" FontSize="18"
+            <Grid Margin="0,20,0,10">
+                <Button x:Name="LoginButton" Cursor="Hand" Click="Login">
+                    <Button.Template>
+                        <ControlTemplate>
+                            <Grid>
+                                <Ellipse Width="32" Height="32" Stroke="#B17" />
+                                <Label FontFamily="../Resources/#FontAwesome" FontSize="18"
                                    VerticalContentAlignment="Center" Padding="0,1,0,0"
                                    HorizontalContentAlignment="Center" Foreground="#B17"></Label>
-                        </Grid>
-                    </ControlTemplate>
-                </Button.Template>
-            </Button>
+                            </Grid>
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
+                <l:ChromeLoader x:Name="Loader" Width="32" Height="32"
+                                BorderThickness="0.1" Foreground="#B17"
+                                Visibility="Hidden" />
+            </Grid>
         </StackPanel>
     </Grid>
 </Window>

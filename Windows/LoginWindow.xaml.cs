@@ -20,7 +20,9 @@ namespace osu_Downloader.Windows
 
         private async void Login(object sender, RoutedEventArgs e)
         {
+            Loader.Visibility = Visibility.Visible;
             LoginButton.IsEnabled = false;
+            KeyDown -= OnKeyDown;
 
             try
             {
@@ -28,7 +30,13 @@ namespace osu_Downloader.Windows
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Couldn't log into osu!.\nCheck the network connection, username and password.\n" + ex.Message);
+                MessageBox.Show(
+                    "Couldn't log into osu!.\nCheck the network connection, username and password.\n"
+                        + ex.Message
+                );
+
+                Loader.Visibility = Visibility.Hidden;
+                KeyDown += OnKeyDown;
                 return;
             }
 
