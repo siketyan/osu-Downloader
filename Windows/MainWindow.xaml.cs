@@ -8,6 +8,8 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Animation;
 
 namespace osu_Downloader.Windows
 {
@@ -76,6 +78,51 @@ namespace osu_Downloader.Windows
                              .FirstOrDefault();
 
             OnPropertyChanged("Selected");
+        }
+
+        private void ShowDownloads(object sender, RoutedEventArgs e)
+        {
+            if (DownloadsPanel.Margin.Right == 0)
+            {
+                HideDownloads(this, null);
+                return;
+            }
+
+            Storyboard sb = FindResource("ShowDownloadsAnimation") as Storyboard;
+            Storyboard.SetTarget(sb, DownloadsPanel);
+
+            sb.Begin();
+        }
+
+        private void HideDownloads(object sender, MouseButtonEventArgs e)
+        {
+            if (DownloadsPanel.Margin.Right != 0) return;
+            if (e != null)
+            {
+                var result = VisualTreeHelper.HitTest(DownloadsGrid, e.GetPosition(DownloadsGrid));
+                if (result.VisualHit is Border) return;
+            }
+
+            Storyboard sb = FindResource("HideDownloadsAnimation") as Storyboard;
+            Storyboard.SetTarget(sb, DownloadsPanel);
+
+            sb.Begin();
+        }
+
+        private void ChangeWindowState(object sender, RoutedEventArgs e)
+        {
+            WindowState = WindowState == WindowState.Normal
+                              ? WindowState.Maximized : WindowState.Normal;
+        }
+
+        private void MinimizeWindow(object sender, RoutedEventArgs e)
+        {
+            WindowState = WindowState.Minimized;
+        }
+
+        private void CloseWindow(object sender, RoutedEventArgs e)
+        {
+            Close();
         }
 
         private void OnKeyDown(object sender, KeyEventArgs e)

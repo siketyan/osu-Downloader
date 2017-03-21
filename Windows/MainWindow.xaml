@@ -11,6 +11,18 @@
     <WindowChrome.WindowChrome>
         <WindowChrome CaptionHeight="64" />
     </WindowChrome.WindowChrome>
+    <Window.Resources>
+        <Storyboard x:Key="ShowDownloadsAnimation">
+            <ThicknessAnimation Storyboard.TargetProperty="Margin"
+                                Timeline.DesiredFrameRate="60"
+                                To="0" Duration="0:0:0.1" />
+        </Storyboard>
+        <Storyboard x:Key="HideDownloadsAnimation">
+            <ThicknessAnimation Storyboard.TargetProperty="Margin"
+                                Timeline.DesiredFrameRate="60"
+                                To="0,0,-256,0" Duration="0:0:0.1" />
+        </Storyboard>
+    </Window.Resources>
     
     <Grid>
         <Grid.RowDefinitions>
@@ -48,6 +60,20 @@
                     <ComboBoxItem>osu!catch</ComboBoxItem>
                     <ComboBoxItem>osu!mania</ComboBoxItem>
                 </ComboBox>
+
+                <Button DockPanel.Dock="Right"  Template="{StaticResource IconButton}"
+                        WindowChrome.IsHitTestVisibleInChrome="True" FontSize="14"
+                        Cursor="Hand" Click="CloseWindow" Margin="2,0,10,0"></Button>
+                <Button DockPanel.Dock="Right"  Template="{StaticResource IconButton}"
+                        WindowChrome.IsHitTestVisibleInChrome="True" FontSize="11"
+                        Cursor="Hand" Click="ChangeWindowState" Margin="2,1,1,0"></Button>
+                <Button DockPanel.Dock="Right"  Template="{StaticResource IconButton}"
+                        WindowChrome.IsHitTestVisibleInChrome="True" FontSize="9"
+                        Cursor="Hand" Click="MinimizeWindow" Margin="2"></Button>
+
+                <Button DockPanel.Dock="Right"  Template="{StaticResource IconButton}"
+                        WindowChrome.IsHitTestVisibleInChrome="True" FontSize="18"
+                        Cursor="Hand" Click="ShowDownloads" Margin="2,0,15,0"></Button>
             </DockPanel>
         </Grid>
 
@@ -196,6 +222,14 @@
                     </StackPanel>
                 </Border>
             </ScrollViewer>
+        </Grid>
+
+        <Grid x:Name="DownloadsGrid" Grid.Row="1"
+              Background="Transparent" MouseLeftButtonDown="HideDownloads">
+            <Border x:Name="DownloadsPanel" Grid.Row="1" Background="#CC000000"
+                Width="256" HorizontalAlignment="Right" Margin="0,0,-256,0">
+
+            </Border>
         </Grid>
     </Grid>
 </Window>
