@@ -2,6 +2,7 @@
 using osu_Downloader.Utilities;
 using System;
 using System.Windows;
+using System.Windows.Input;
 
 namespace osu_Downloader.Windows
 {
@@ -32,6 +33,13 @@ namespace osu_Downloader.Windows
             }
 
             Close();
-        } 
+        }
+
+        private void OnKeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key != Key.Enter) return;
+
+            Login(this, null);
+        }
     }
 }

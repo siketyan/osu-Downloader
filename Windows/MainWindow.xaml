@@ -31,10 +31,10 @@
                     </Image.Source>
                 </Image>
                 <TextBox x:Name="Query" WindowChrome.IsHitTestVisibleInChrome="True" Margin="15,5,5,5"
-                         Width="256" Background="Transparent" FontSize="16" />
+                         Width="256" Background="Transparent" FontSize="16" KeyDown="OnKeyDown" />
                 <Grid>
-                    <Button Template="{StaticResource IconButton}" FontSize="14"
-                            WindowChrome.IsHitTestVisibleInChrome="True"
+                    <Button x:Name="SearchButton" Template="{StaticResource IconButton}"
+                            WindowChrome.IsHitTestVisibleInChrome="True" FontSize="14"
                             Cursor="Hand" Click="Search" Margin="10"></Button>
                     <l:ChromeLoader x:Name="Loader" Foreground="#FFF"
                                     Width="32" Height="32" Visibility="Hidden" />

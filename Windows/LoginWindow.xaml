@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
         Title="Login" Height="225" Width="340" SizeToContent="Height"
-        Icon="../Resources/downloader.ico">
+        Icon="../Resources/downloader.ico" KeyDown="OnKeyDown">
     <Window.Resources>
         <Style TargetType="{x:Type TextBox}">
             <Setter Property="FontFamily" Value="Resources/#Exo 2.0" />

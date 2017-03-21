@@ -42,7 +42,7 @@ namespace osu_Downloader.Windows
 
         private async void Search(object sender, RoutedEventArgs e)
         {
-            ((Button)sender).IsEnabled = false;
+            SearchButton.IsEnabled = false;
             Loader.Visibility = Visibility.Visible;
             Result.Clear();
 
@@ -53,7 +53,7 @@ namespace osu_Downloader.Windows
             }
 
             Loader.Visibility = Visibility.Hidden;
-            ((Button)sender).IsEnabled = true;
+            SearchButton.IsEnabled = true;
         }
 
         private void SelectBeatmap(object sender, MouseButtonEventArgs e)
@@ -63,6 +63,13 @@ namespace osu_Downloader.Windows
                              .FirstOrDefault();
 
             OnPropertyChanged("Selected");
+        }
+
+        private void OnKeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key != Key.Enter) return;
+
+            Search(this, null);
         }
 
         private void OnPropertyChanged(string name)
