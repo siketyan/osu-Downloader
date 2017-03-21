@@ -92,7 +92,7 @@
     </ControlTemplate>
 
     <sys:Double x:Key="ScrollBarSize">8</sys:Double>
-    <sys:Double x:Key="ScrollBarMarginSize">0</sys:Double>
+    <sys:Double x:Key="ScrollBarMarginSize">5</sys:Double>
     <SolidColorBrush x:Key="ScrollBarColorBrush" Color="#FF404040" />
     <SolidColorBrush x:Key="ScrollBarBorderBrush" Color="Transparent" />
     <SolidColorBrush x:Key="ScrollBarTrackBrush" Color="Transparent" />
@@ -173,14 +173,8 @@
                             <RowDefinition/>
                             <RowDefinition Height="Auto"/>
                         </Grid.RowDefinitions>
-                        <ScrollContentPresenter Grid.Column="0" Grid.Row="0">
-                            <ScrollContentPresenter.Margin>
-                                <Thickness Left="{StaticResource ScrollBarMarginSize}"
-                                           Top="{StaticResource ScrollBarMarginSize}"
-                                           Right="{StaticResource ScrollBarMarginSize}"
-                                           Bottom="{StaticResource ScrollBarMarginSize}" />
-                            </ScrollContentPresenter.Margin>
-                        </ScrollContentPresenter>
+                        
+                        <ScrollContentPresenter Grid.Column="0" Grid.Row="0" />
                         <ScrollBar x:Name="PART_VerticalScrollBar" Grid.Column="1" Grid.Row="0"
                                    Orientation="Vertical" Value="{TemplateBinding VerticalOffset}"
                                    Maximum="{TemplateBinding ScrollableHeight}"

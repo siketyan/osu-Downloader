@@ -6,7 +6,8 @@
         xmlns:l="clr-namespace:Loaders;assembly=MrMitch.Loaders"
         mc:Ignorable="d" BorderBrush="#B17" BorderThickness="1"
         Title="osu! Downloader" Height="591" Width="1076"
-        Icon="../Resources/downloader.ico">
+        Icon="../Resources/downloader.ico" MinWidth="720"
+        WindowStartupLocation="CenterScreen" MinHeight="360">
     <WindowChrome.WindowChrome>
         <WindowChrome CaptionHeight="64" />
     </WindowChrome.WindowChrome>
@@ -30,8 +31,9 @@
                                      DecodePixelWidth="54" DecodePixelHeight="54" />
                     </Image.Source>
                 </Image>
-                <TextBox x:Name="Query" WindowChrome.IsHitTestVisibleInChrome="True" Margin="15,5,5,5"
-                         Width="256" Background="Transparent" FontSize="16" KeyDown="OnKeyDown" />
+                <TextBox x:Name="Query" WindowChrome.IsHitTestVisibleInChrome="True"
+                         Margin="15,5,5,5" Padding="10,0" Width="256"
+                         Background="Transparent" FontSize="16" KeyDown="OnKeyDown" />
                 <Grid>
                     <Button x:Name="SearchButton" Template="{StaticResource IconButton}"
                             WindowChrome.IsHitTestVisibleInChrome="True" FontSize="14"
@@ -60,7 +62,7 @@
             </Grid.ColumnDefinitions>
 
             <DockPanel Grid.Column="0">
-                <Label DockPanel.Dock="Top" Padding="15,15,0,5" FontSize="18">Search Result</Label>
+                <Label DockPanel.Dock="Top" Padding="20,15,0,5" FontSize="18">Search Result</Label>
                 <ScrollViewer Style="{StaticResource CustomScrollViewerStyle}"
                               HorizontalScrollBarVisibility="Disabled"
                               VerticalScrollBarVisibility="Visible"
@@ -69,7 +71,7 @@
                              HorizontalContentAlignment="Stretch" ItemsSource="{Binding Result}">
                         <ListBox.Template>
                             <ControlTemplate TargetType="ItemsControl">
-                                <ItemsPresenter Margin="10,0" />
+                                <ItemsPresenter Margin="15,0,5,0" />
                             </ControlTemplate>
                         </ListBox.Template>
                         <ListBox.ItemsPanel>
@@ -111,7 +113,7 @@
                                             <StackPanel Orientation="Horizontal" Margin="2,3,2,4">
                                                 <Label Padding="0">▶</Label>
                                                 <Label Padding="0" Content="{Binding PlayCount}" />
-                                                <Label Padding="0">♥</Label>
+                                                <Label Padding="5,0,0,0">♥</Label>
                                                 <Label Padding="0" Content="{Binding FavouriteCount}" />
                                             </StackPanel>
                                         </StackPanel>
@@ -124,82 +126,75 @@
             </DockPanel>
 
             <ScrollViewer Grid.Column="1" Style="{StaticResource CustomScrollViewerStyle}"
-                      HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Visible">
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition />
-                        <ColumnDefinition Width="700" />
-                        <ColumnDefinition />
-                    </Grid.ColumnDefinitions>
-
-                    <Border Grid.Column="1" Background="#FFF" Margin="10,15">
-                        <Border.Effect>
-                            <DropShadowEffect Color="#CC999393" Opacity="0.4"
+                          HorizontalScrollBarVisibility="Disabled"
+                          VerticalScrollBarVisibility="Visible">
+                <Border Grid.Column="1" Background="#FFF" Margin="5,10" Padding="0,0,0,15">
+                    <Border.Effect>
+                        <DropShadowEffect Color="#CC999393" Opacity="0.4"
                                               Direction="0" ShadowDepth="0" BlurRadius="10" />
-                        </Border.Effect>
+                    </Border.Effect>
 
-                        <StackPanel>
-                            <Grid>
-                                <Image Source="{Binding Selected.Covers.Card2xUrl}">
-                                    <Image.OpacityMask>
-                                        <LinearGradientBrush>
-                                            <LinearGradientBrush.Transform>
-                                                <RotateTransform Angle="75" />
-                                            </LinearGradientBrush.Transform>
+                    <StackPanel>
+                        <Grid>
+                            <Image Source="{Binding Selected.Covers.Card2xUrl}">
+                                <Image.OpacityMask>
+                                    <LinearGradientBrush>
+                                        <LinearGradientBrush.Transform>
+                                            <RotateTransform Angle="75" />
+                                        </LinearGradientBrush.Transform>
 
-                                            <GradientStop Color="White"/>
-                                            <GradientStop Offset="0.24"/>
-                                        </LinearGradientBrush>
-                                    </Image.OpacityMask>
-                                </Image>
-                                <DockPanel LastChildFill="False" Margin="20,15">
-                                    <DockPanel.Effect>
-                                        <DropShadowEffect Color="#CC999393" Opacity="0.8" Direction="0" ShadowDepth="0" BlurRadius="10" />
-                                    </DockPanel.Effect>
+                                        <GradientStop Color="White"/>
+                                        <GradientStop Offset="0.24"/>
+                                    </LinearGradientBrush>
+                                </Image.OpacityMask>
+                            </Image>
+                            <DockPanel LastChildFill="False" Margin="20,15">
+                                <DockPanel.Effect>
+                                    <DropShadowEffect Color="#CC999393" Opacity="0.8" Direction="0" ShadowDepth="0" BlurRadius="10" />
+                                </DockPanel.Effect>
 
-                                    <Button Template="{StaticResource IconButton}"
+                                <Button Template="{StaticResource IconButton}"
                                             FontSize="32" VerticalAlignment="Top"></Button>
-                                    <Button DockPanel.Dock="Right" FontSize="32"
+                                <Button DockPanel.Dock="Right" FontSize="32"
                                             Template="{StaticResource IconButton}"
                                             VerticalAlignment="Top">
-                                        <TextBlock TextAlignment="Center">
+                                    <TextBlock TextAlignment="Center">
                                             <Run FontFamily="../Resources/#FontAwesome"
                                                  Foreground="#FFF"></Run>
                                             <LineBreak />
                                             <Run FontFamily="../Resources/#Exo 2.0"
                                                  Foreground="#FFF" FontSize="12">No Video</Run>
-                                        </TextBlock>
-                                    </Button>
-                                    <Button DockPanel.Dock="Right" FontSize="32"
+                                    </TextBlock>
+                                </Button>
+                                <Button DockPanel.Dock="Right" FontSize="32"
                                             Template="{StaticResource IconButton}"
                                             VerticalAlignment="Top"></Button>
-                                </DockPanel>
-                            </Grid>
-                            <StackPanel Margin="15,0">
-                                <Label FontSize="22" Content="{Binding Selected.Title}" />
-                                <Label FontSize="18"  Content="{Binding Selected.Artist}" Padding="5,0,5,5" />
-                                <Label Padding="5,5,5,3">
-                                    <TextBlock>
+                            </DockPanel>
+                        </Grid>
+                        <StackPanel Margin="15,0">
+                            <Label FontSize="22" Content="{Binding Selected.Title}" />
+                            <Label FontSize="18"  Content="{Binding Selected.Artist}" Padding="5,0,5,5" />
+                            <Label Padding="5,5,5,3">
+                                <TextBlock>
                                         <Run>Creator: </Run>
                                         <Run Text="{Binding Selected.Creator}" />
-                                    </TextBlock>
-                                </Label>
-                                <Label Padding="5,3">
-                                    <TextBlock>
+                                </TextBlock>
+                            </Label>
+                            <Label Padding="5,3">
+                                <TextBlock>
                                         <Run>Source: </Run>
                                         <Run Text="{Binding Selected.Source}" />
-                                    </TextBlock>
-                                </Label>
-                                <Label Padding="5,3">
-                                    <DockPanel>
-                                        <TextBlock Margin="0,0,4,0">Tags:</TextBlock>
-                                        <TextBlock Text="{Binding Selected.Tags}" TextWrapping="Wrap" />
-                                    </DockPanel>
-                                </Label>
-                            </StackPanel>
+                                </TextBlock>
+                            </Label>
+                            <Label Padding="5,3">
+                                <DockPanel>
+                                    <TextBlock Margin="0,0,4,0">Tags:</TextBlock>
+                                    <TextBlock Text="{Binding Selected.Tags}" TextWrapping="Wrap" />
+                                </DockPanel>
+                            </Label>
                         </StackPanel>
-                    </Border>
-                </Grid>
+                    </StackPanel>
+                </Border>
             </ScrollViewer>
         </Grid>
     </Grid>

@@ -4,12 +4,12 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:l="clr-namespace:Loaders;assembly=MrMitch.Loaders"
-        mc:Ignorable="d"
+        mc:Ignorable="d" WindowStartupLocation="CenterScreen"
         Title="Login" Height="225" Width="340" SizeToContent="Height"
         Icon="../Resources/downloader.ico" KeyDown="OnKeyDown">
     <Window.Resources>
         <Style TargetType="{x:Type TextBox}">
-            <Setter Property="FontFamily" Value="Resources/#Exo 2.0" />
+            <Setter Property="FontFamily" Value="../Resources/#Exo 2.0" />
             <Setter Property="Foreground" Value="#000" />
             <Setter Property="CaretBrush" Value="#000" />
             <Setter Property="VerticalContentAlignment" Value="Center" />
@@ -34,7 +34,6 @@
         </Style>
 
         <Style TargetType="{x:Type PasswordBox}">
-            <Setter Property="FontFamily" Value="Resources/#Exo 2.0" />
             <Setter Property="Foreground" Value="#000" />
             <Setter Property="CaretBrush" Value="#000" />
             <Setter Property="VerticalContentAlignment" Value="Center" />
