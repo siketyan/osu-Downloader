@@ -101,7 +101,7 @@ namespace osu_Downloader.Utilities
 
         public Beatmap[] Search(string query,
                                 GameModeSearchOption mode = GameModeSearchOption.Osu,
-                                RankStatusSearchOption status = RankStatusSearchOption.Any,
+                                RankStatusSearchOption status = RankStatusSearchOption.RankedAndApproved,
                                 GenreSearchOption? genre = null,
                                 LanguageSearchOption? language = null,
                                 ExtraSearchOption? extra = null)
@@ -121,7 +121,7 @@ namespace osu_Downloader.Utilities
 
         public async Task<Beatmap[]> SearchAsync(string query,
                                                   GameModeSearchOption mode = GameModeSearchOption.Osu,
-                                                  RankStatusSearchOption status = RankStatusSearchOption.Any,
+                                                  RankStatusSearchOption status = RankStatusSearchOption.RankedAndApproved,
                                                   GenreSearchOption? genre = null,
                                                   LanguageSearchOption? language = null,
                                                   ExtraSearchOption? extra = null)
