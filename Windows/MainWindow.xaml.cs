@@ -36,10 +36,13 @@ namespace osu_Downloader.Windows
             {
                 config = new Config();
 
+                ReLogin:
                 var window = new LoginWindow();
                 window.ShowDialog();
 
                 var response = window.Response;
+                if (response == null) goto ReLogin;
+
                 config.SessionID = response.SessionID;
                 config.Save();
             }
