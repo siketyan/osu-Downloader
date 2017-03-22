@@ -21,6 +21,7 @@ namespace osu_Downloader.Windows
         public event PropertyChangedEventHandler PropertyChanged;
 
         public ObservableCollection<Beatmap> Result { get; set; }
+        public ObservableCollection<Download> Downloads { get; set; }
         public Beatmap Selected { get; set; }
 
         private API api;
@@ -51,6 +52,7 @@ namespace osu_Downloader.Windows
 
 	        api = new API(config.SessionID);
             Result = new ObservableCollection<Beatmap>();
+            Downloads = new ObservableCollection<Download>();
 
             DataContext = this;
         }
@@ -97,11 +99,9 @@ namespace osu_Downloader.Windows
         private void HideDownloads(object sender, MouseButtonEventArgs e)
         {
             if (DownloadsPanel.Margin.Right != 0) return;
-            if (e != null)
-            {
-                var result = VisualTreeHelper.HitTest(DownloadsGrid, e.GetPosition(DownloadsGrid));
-                if (result.VisualHit is Border) return;
-            }
+            if (e == null ||
+                (string)((FrameworkElement)VisualTreeHelper.HitTest(this, e.GetPosition(this))
+                                                           .VisualHit).Tag == "_D_") return;
 
             Storyboard sb = FindResource("HideDownloadsAnimation") as Storyboard;
             Storyboard.SetTarget(sb, DownloadsPanel);

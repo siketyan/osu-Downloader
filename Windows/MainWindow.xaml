@@ -7,7 +7,8 @@
         mc:Ignorable="d" BorderBrush="#B17" BorderThickness="1"
         Title="osu! Downloader" Height="591" Width="1076"
         Icon="../Resources/downloader.ico" MinWidth="720"
-        WindowStartupLocation="CenterScreen" MinHeight="360">
+        WindowStartupLocation="CenterScreen" MinHeight="360"
+        PreviewMouseLeftButtonDown="HideDownloads">
     <WindowChrome.WindowChrome>
         <WindowChrome CaptionHeight="64" />
     </WindowChrome.WindowChrome>
@@ -20,7 +21,7 @@
         <Storyboard x:Key="HideDownloadsAnimation">
             <ThicknessAnimation Storyboard.TargetProperty="Margin"
                                 Timeline.DesiredFrameRate="60"
-                                To="0,0,-256,0" Duration="0:0:0.1" />
+                                To="0,0,-300,0" Duration="0:0:0.1" />
         </Storyboard>
     </Window.Resources>
     
@@ -224,12 +225,48 @@
             </ScrollViewer>
         </Grid>
 
-        <Grid x:Name="DownloadsGrid" Grid.Row="1"
-              Background="Transparent" MouseLeftButtonDown="HideDownloads">
-            <Border x:Name="DownloadsPanel" Grid.Row="1" Background="#CC000000"
-                Width="256" HorizontalAlignment="Right" Margin="0,0,-256,0">
-
-            </Border>
-        </Grid>
+        <Border x:Name="DownloadsPanel" Grid.Row="1" Background="#DD000000"
+                Width="300" HorizontalAlignment="Right" Margin="0" Tag="_D_">
+            <DockPanel Tag="_D_">
+                <Label DockPanel.Dock="Top" Foreground="#FFF" Tag="_D_"
+                           Padding="20,15,0,5" FontSize="18">Downloads</Label>
+                <ScrollViewer Style="{StaticResource WhiteScrollViewerStyle}"
+                              HorizontalScrollBarVisibility="Disabled"
+                              VerticalScrollBarVisibility="Visible"
+                              HorizontalContentAlignment="Stretch" Tag="_D_">
+                    <ListBox Background="Transparent" BorderThickness="0" Tag="_D_"
+                             HorizontalContentAlignment="Stretch" ItemsSource="{Binding Downloads}">
+                        <ListBox.Resources>
+                            <Style TargetType="{x:Type Label}">
+                                <Setter Property="FontFamily" Value="../Resources/#Exo 2.0" />
+                                <Setter Property="Foreground" Value="#FFF" />
+                            </Style>
+                        </ListBox.Resources>
+                        <ListBox.Template>
+                            <ControlTemplate TargetType="ItemsControl">
+                                <ItemsPresenter Margin="15,5,5,0" Tag="_D_" />
+                            </ControlTemplate>
+                        </ListBox.Template>
+                        <ListBox.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <VirtualizingStackPanel VirtualizationMode="Recycling" IsVirtualizing="True" Tag="_D_" />
+                            </ItemsPanelTemplate>
+                        </ListBox.ItemsPanel>
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Margin="0,5" Tag="_D_">
+                                    <Label Padding="0" Content="{Binding Beatmap.Title}" Tag="_D_" />
+                                    <StackPanel Orientation="Horizontal" Tag="_D_">
+                                        <Rectangle Width="{Binding ProgressBarWidth}" Height="3" Fill="#FFF"
+                                                       HorizontalAlignment="Left" Margin="0,1,0,0" Tag="_D_" />
+                                        <Label Padding="5,0,0,0" Content="{Binding ProgressStr}" Tag="_D_" />
+                                    </StackPanel>
+                                </StackPanel>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                </ScrollViewer>
+            </DockPanel>
+        </Border>
     </Grid>
 </Window>
