@@ -243,7 +243,7 @@ namespace osu_Downloader.Utilities
         
         public static string GetValue(this ExtraSearchOption extra)
         {
-            return values[(int)extra];
+            return values[(int)extra - 1];
         }
     }
 }
