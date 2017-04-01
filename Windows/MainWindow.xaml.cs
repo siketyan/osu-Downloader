@@ -10,6 +10,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
+using System.Windows.Threading;
 
 namespace osu_Downloader.Windows
 {
@@ -90,11 +91,18 @@ namespace osu_Downloader.Windows
 
         private void SelectBeatmap(object sender, MouseButtonEventArgs e)
         {
+            Detail.Visibility = Visibility.Hidden;
+
             var id = (long)((Border)sender).Tag;
             Selected = Result.Where(b => b.ID == id)
                              .FirstOrDefault();
 
+            NoVideo.Visibility = Selected.HasVideo
+                                     ? Visibility.Visible
+                                     : Visibility.Collapsed;
+
             OnPropertyChanged("Selected");
+            Detail.Visibility = Visibility.Visible;
         }
 
         private void Download(object sender, RoutedEventArgs e)

@@ -209,7 +209,8 @@
                 </ScrollViewer>
             </DockPanel>
 
-            <ScrollViewer Grid.Column="1" Style="{StaticResource CustomScrollViewerStyle}"
+            <ScrollViewer x:Name="Detail" Grid.Column="1" Visibility="Hidden"
+                          Style="{StaticResource CustomScrollViewerStyle}"
                           HorizontalScrollBarVisibility="Disabled"
                           VerticalScrollBarVisibility="Visible">
                 <Border Grid.Column="1" Background="#FFF" Margin="5,10" Padding="0,0,0,15">
@@ -240,9 +241,9 @@
 
                                 <Button Template="{StaticResource IconButton}" Cursor="Hand"
                                         FontSize="32" VerticalAlignment="Top"></Button>
-                                <Button DockPanel.Dock="Right" FontSize="32" Cursor="Hand"
+                                <Button x:Name="NoVideo" DockPanel.Dock="Right" FontSize="32"
                                         Template="{StaticResource IconButton}" Tag="_N_"
-                                        VerticalAlignment="Top" Click="Download">
+                                        VerticalAlignment="Top" Cursor="Hand" Click="Download">
                                     <TextBlock TextAlignment="Center">
                                         <Run FontFamily="../Resources/#FontAwesome"
                                              Foreground="#FFF"></Run>
