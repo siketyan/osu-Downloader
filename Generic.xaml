@@ -84,7 +84,8 @@
     </Style>
 
     <ControlTemplate x:Key="IconButton" TargetType="{x:Type Button}">
-        <Label Content="{TemplateBinding Content}"
+        <Label Tag="{TemplateBinding Tag}"
+               Content="{TemplateBinding Content}"
                FontSize="{TemplateBinding FontSize}"
                FontFamily="Resources/#FontAwesome"
                Foreground="#FFF"

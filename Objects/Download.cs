@@ -1,11 +1,16 @@
-﻿using System;
+﻿using osu_Downloader.Utilities;
+using osu_Downloader.Windows;
+using System.ComponentModel;
 
 namespace osu_Downloader.Objects
 {
-    public class Download
+    public class Download : INotifyPropertyChanged
     {
-        public double ProgressBarWidth { get; set; }
-        public string ProgressStr { get; private set; }
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        public Downloader Downloader { get; set; }
+        public double ProgressBarWidth { get; private set; }
+        public string ProgressStr { get; private set; } = "0 %";
         public double Progress
         {
             get { return progress; }
@@ -14,12 +19,22 @@ namespace osu_Downloader.Objects
                 progress = value;
 
                 ProgressBarWidth = progress * 2;
-                ProgressStr = Math.Round(progress, 2, MidpointRounding.AwayFromZero)
-                                  .ToString() + " %";
+                ProgressStr = progress + " %";
+
+                OnPropertyChanged("Progress");
+                OnPropertyChanged("ProgressStr");
+                OnPropertyChanged("ProgressWidth");
+
+                MainWindow.GetInstance().RefreshDownloads();
             }
         }
         public Beatmap Beatmap { get; set; }
 
         private double progress;
+
+        private void OnPropertyChanged(string name)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
+        }
     }
 }

@@ -2,6 +2,7 @@
 using osu_Downloader.Objects;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Net;
 using System.Text;
@@ -14,18 +15,21 @@ namespace osu_Downloader.Utilities
     public class API
     {
         private const string baseURL = "https://new.ppy.sh/";
-        private string sessionID;
+        private const string baseURLOld = "https://osu.ppy.sh/";
+
+        public string SessionID { get; private set; }
+        public string DownloadSessionID { get; private set; }
 
         public API(string sid)
         {
-            sessionID = sid;
+            SessionID = sid;
         }
 
         private string Get(string url, Dictionary<string, string> parameters)
         {
             using (var wc = new WebClient())
             {
-                wc.Headers[HttpRequestHeader.Cookie] = "osu_session=" + sessionID;
+                wc.Headers[HttpRequestHeader.Cookie] = "osu_session=" + SessionID;
 
                 return wc.DownloadString(
                            baseURL + url + "?"
@@ -43,14 +47,14 @@ namespace osu_Downloader.Utilities
             }
         }
 
-        private static Tuple<string,string> Post(string url, Dictionary<string, string> parameters)
+        private static Tuple<string, string> Post(string url, Dictionary<string, string> parameters)
         {
             using (var wc = new WebClient())
             {
                 wc.Headers.Add("Content-Type", "application/x-www-form-urlencoded");
-
+                
                 var data = wc.UploadData(
-                               baseURL + url, "POST",
+                               url, "POST",
                                Encoding.UTF8.GetBytes(
                                    string.Join(
                                        "&",
@@ -64,22 +68,58 @@ namespace osu_Downloader.Utilities
                                    )
                                )
                            );
+
                 var cookie = wc.ResponseHeaders[HttpResponseHeader.SetCookie];
 
                 return new Tuple<string, string>(Encoding.UTF8.GetString(data), cookie);
             }
         }
 
+        private static string CookiePost(string url, Dictionary<string, string> parameters)
+        {
+            var wc = new CookieWebClient();
+            var data = wc.Post(
+                           new Uri(url),
+                           Encoding.UTF8.GetBytes(
+                               string.Join(
+                                   "&",
+                                   parameters.Select(
+                                       p => string.Join(
+                                                "=",
+                                                HttpUtility.UrlEncode(p.Key),
+                                                HttpUtility.UrlEncode(p.Value)
+                                            )
+                                   )
+                               )
+                           )
+                       );
+            
+            Debug.WriteLine(wc.Cookies);
+
+            return wc.Cookies;
+        }
+
         public static LoginResponse Login(string username, string password)
         {
             var response = Post(
-                               "users/login",
+                               baseURL + "users/login",
                                new Dictionary<string, string>
                                {
                                    {"username", username},
                                    {"password", password}
                                }
                            );
+
+            var dResponse = CookiePost(
+                               "https://osu.ppy.sh/forum/ucp.php?mode=login",
+                               new Dictionary<string, string>
+                               {
+                                   {"username", username},
+                                   {"password", password},
+                                   {"autologin", "1"},
+                                   {"login", "login"}
+                               }
+                            );
 
             var sessionID = Regex.Split(response.Item2, "(?<!expires=.{3}),")
                                  .Select(s => s.Split(';').First().Split('='))
@@ -88,8 +128,16 @@ namespace osu_Downloader.Utilities
                                  .FirstOrDefault()
                                  .Value;
 
+            var dSessionID = Regex.Split(dResponse, "(?<!expires=.{3}),")
+                                 .Select(s => s.Split(';').First().Split('='))
+                                 .Select(xs => new { Name = xs.First(), Value = string.Join("=", xs.Skip(1).ToArray()) })
+                                 .Where(a => a.Name == "phpbb3_2cjk5_sid")
+                                 .FirstOrDefault()
+                                 .Value;
+
             var data = JsonConvert.DeserializeObject<LoginResponse>(response.Item1);
             data.SessionID = sessionID;
+            data.DownloadSessionID = dSessionID;
 
             return data;
         }

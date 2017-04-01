@@ -5,6 +5,7 @@ namespace osu_Downloader.Objects
     public class LoginResponse
     {
         public string SessionID { get; set; }
+        public string DownloadSessionID { get; set; }
 
         [JsonProperty("header")]
         public string Header { get; set; }

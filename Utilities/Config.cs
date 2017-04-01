@@ -11,6 +11,9 @@ namespace osu_Downloader.Utilities
         [JsonProperty("sessionID")]
         public string SessionID { get; set; }
 
+        [JsonProperty("dSessionID")]
+        public string DownloadSessionID { get; set; }
+
         public static Config Open()
         {
             using (var reader = new StreamReader("config.json"))

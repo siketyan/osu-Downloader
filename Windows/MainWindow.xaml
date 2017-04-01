@@ -158,7 +158,7 @@
                 <Border Grid.Column="1" Background="#FFF" Margin="5,10" Padding="0,0,0,15">
                     <Border.Effect>
                         <DropShadowEffect Color="#CC999393" Opacity="0.4"
-                                              Direction="0" ShadowDepth="0" BlurRadius="10" />
+                                          Direction="0" ShadowDepth="0" BlurRadius="10" />
                     </Border.Effect>
 
                     <StackPanel>
@@ -177,25 +177,26 @@
                             </Image>
                             <DockPanel LastChildFill="False" Margin="20,15">
                                 <DockPanel.Effect>
-                                    <DropShadowEffect Color="#CC999393" Opacity="0.8" Direction="0" ShadowDepth="0" BlurRadius="10" />
+                                    <DropShadowEffect Color="#CC999393" Opacity="0.8"
+                                                      Direction="0" ShadowDepth="0" BlurRadius="10" />
                                 </DockPanel.Effect>
 
-                                <Button Template="{StaticResource IconButton}"
-                                            FontSize="32" VerticalAlignment="Top"></Button>
-                                <Button DockPanel.Dock="Right" FontSize="32"
-                                            Template="{StaticResource IconButton}"
-                                            VerticalAlignment="Top">
+                                <Button Template="{StaticResource IconButton}" Cursor="Hand"
+                                        FontSize="32" VerticalAlignment="Top"></Button>
+                                <Button DockPanel.Dock="Right" FontSize="32" Cursor="Hand"
+                                        Template="{StaticResource IconButton}" Tag="_N_"
+                                        VerticalAlignment="Top" Click="Download">
                                     <TextBlock TextAlignment="Center">
-                                            <Run FontFamily="../Resources/#FontAwesome"
-                                                 Foreground="#FFF"></Run>
-                                            <LineBreak />
-                                            <Run FontFamily="../Resources/#Exo 2.0"
-                                                 Foreground="#FFF" FontSize="12">No Video</Run>
+                                        <Run FontFamily="../Resources/#FontAwesome"
+                                             Foreground="#FFF"></Run>
+                                        <LineBreak />
+                                        <Run FontFamily="../Resources/#Exo 2.0"
+                                             Foreground="#FFF" FontSize="12">No Video</Run>
                                     </TextBlock>
                                 </Button>
-                                <Button DockPanel.Dock="Right" FontSize="32"
-                                            Template="{StaticResource IconButton}"
-                                            VerticalAlignment="Top"></Button>
+                                <Button DockPanel.Dock="Right" FontSize="32" Cursor="Hand"
+                                        Template="{StaticResource IconButton}"
+                                        VerticalAlignment="Top" Click="Download"></Button>
                             </DockPanel>
                         </Grid>
                         <StackPanel Margin="15,0">
@@ -203,14 +204,14 @@
                             <Label FontSize="18"  Content="{Binding Selected.Artist}" Padding="5,0,5,5" />
                             <Label Padding="5,5,5,3">
                                 <TextBlock>
-                                        <Run>Creator: </Run>
-                                        <Run Text="{Binding Selected.Creator}" />
+                                    <Run>Creator: </Run>
+                                    <Run Text="{Binding Selected.Creator}" />
                                 </TextBlock>
                             </Label>
                             <Label Padding="5,3">
                                 <TextBlock>
-                                        <Run>Source: </Run>
-                                        <Run Text="{Binding Selected.Source}" />
+                                    <Run>Source: </Run>
+                                    <Run Text="{Binding Selected.Source}" />
                                 </TextBlock>
                             </Label>
                             <Label Padding="5,3">
@@ -226,15 +227,15 @@
         </Grid>
 
         <Border x:Name="DownloadsPanel" Grid.Row="1" Background="#DD000000"
-                Width="300" HorizontalAlignment="Right" Margin="0" Tag="_D_">
+                Width="300" HorizontalAlignment="Right" Margin="0,0,-300,0">
             <DockPanel Tag="_D_">
-                <Label DockPanel.Dock="Top" Foreground="#FFF" Tag="_D_"
-                           Padding="20,15,0,5" FontSize="18">Downloads</Label>
+                <Label DockPanel.Dock="Top" Foreground="#FFF"
+                       Padding="20,15,0,5" FontSize="18">Downloads</Label>
                 <ScrollViewer Style="{StaticResource WhiteScrollViewerStyle}"
                               HorizontalScrollBarVisibility="Disabled"
                               VerticalScrollBarVisibility="Visible"
-                              HorizontalContentAlignment="Stretch" Tag="_D_">
-                    <ListBox Background="Transparent" BorderThickness="0" Tag="_D_"
+                              HorizontalContentAlignment="Stretch">
+                    <ListBox x:Name="DownloadsList" Background="Transparent" BorderThickness="0"
                              HorizontalContentAlignment="Stretch" ItemsSource="{Binding Downloads}">
                         <ListBox.Resources>
                             <Style TargetType="{x:Type Label}">
@@ -244,24 +245,28 @@
                         </ListBox.Resources>
                         <ListBox.Template>
                             <ControlTemplate TargetType="ItemsControl">
-                                <ItemsPresenter Margin="15,5,5,0" Tag="_D_" />
+                                <ItemsPresenter Margin="15,5,5,0" />
                             </ControlTemplate>
                         </ListBox.Template>
                         <ListBox.ItemsPanel>
                             <ItemsPanelTemplate>
-                                <VirtualizingStackPanel VirtualizationMode="Recycling" IsVirtualizing="True" Tag="_D_" />
+                                <VirtualizingStackPanel VirtualizationMode="Recycling" IsVirtualizing="True" />
                             </ItemsPanelTemplate>
                         </ListBox.ItemsPanel>
                         <ListBox.ItemTemplate>
                             <DataTemplate>
-                                <StackPanel Margin="0,5" Tag="_D_">
-                                    <Label Padding="0" Content="{Binding Beatmap.Title}" Tag="_D_" />
-                                    <StackPanel Orientation="Horizontal" Tag="_D_">
-                                        <Rectangle Width="{Binding ProgressBarWidth}" Height="3" Fill="#FFF"
-                                                       HorizontalAlignment="Left" Margin="0,1,0,0" Tag="_D_" />
-                                        <Label Padding="5,0,0,0" Content="{Binding ProgressStr}" Tag="_D_" />
+                                <DockPanel>
+                                    <Button Template="{StaticResource IconButton}" Cursor="Hand" Tag="{Binding Beatmap.ID}"
+                                            FontSize="14" Margin="0,0,5,0"  Click="CancelDownload"></Button>
+                                    <StackPanel Margin="0,5" Tag="_D_">
+                                        <Label Padding="0" Content="{Binding Beatmap.Title}" />
+                                        <StackPanel Orientation="Horizontal">
+                                            <Rectangle Width="{Binding ProgressBarWidth}" Height="3" Fill="#FFF"
+                                                   HorizontalAlignment="Left" Margin="0,1,0,0" />
+                                            <Label Padding="5,0,0,0" Content="{Binding ProgressStr}" />
+                                        </StackPanel>
                                     </StackPanel>
-                                </StackPanel>
+                                </DockPanel>
                             </DataTemplate>
                         </ListBox.ItemTemplate>
                     </ListBox>

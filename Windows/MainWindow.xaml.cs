@@ -1,5 +1,4 @@
-﻿using Newtonsoft.Json;
-using osu_Downloader.Objects;
+﻿using osu_Downloader.Objects;
 using osu_Downloader.Utilities;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
@@ -24,6 +23,7 @@ namespace osu_Downloader.Windows
         public ObservableCollection<Download> Downloads { get; set; }
         public Beatmap Selected { get; set; }
 
+        private static MainWindow instance;
         private API api;
         private Config config;
 
@@ -47,6 +47,7 @@ namespace osu_Downloader.Windows
                 if (response == null) goto ReLogin;
 
                 config.SessionID = response.SessionID;
+                config.DownloadSessionID = response.DownloadSessionID;
                 config.Save();
             }
 
@@ -54,6 +55,7 @@ namespace osu_Downloader.Windows
             Result = new ObservableCollection<Beatmap>();
             Downloads = new ObservableCollection<Download>();
 
+            instance = this;
             DataContext = this;
         }
 
@@ -82,6 +84,36 @@ namespace osu_Downloader.Windows
             OnPropertyChanged("Selected");
         }
 
+        private void Download(object sender, RoutedEventArgs e)
+        {
+            if (Downloads.Where(d => d.Beatmap == Selected)
+                         .Count() != 0)
+            {
+                MessageBox.Show("This beatmap is already downloading.");
+                return;
+            }
+
+            var tag = ((Button)sender).Tag;
+            var video = !Selected.HasVideo || !(tag is string) || (string)tag != "_N_";
+            if (!Directory.Exists("downloads")) Directory.CreateDirectory("downloads");
+
+            var downloader = new Downloader();
+            downloader.Progress += OnDownloadProgress;
+            downloader.Downloaded += OnDownloaded;
+
+            Downloads.Add(downloader.Download(Selected, config.DownloadSessionID, video));
+            ShowDownloads(this, null);
+        }
+
+        private void CancelDownload(object sender, RoutedEventArgs e)
+        {
+            var download = Downloads.Where(d => d.Beatmap.ID == (long)((Button)sender).Tag)
+                                    .FirstOrDefault();
+
+            download.Downloader.Cancel();
+            Downloads.Remove(download);
+        }
+
         private void ShowDownloads(object sender, RoutedEventArgs e)
         {
             if (DownloadsPanel.Margin.Right == 0)
@@ -98,15 +130,21 @@ namespace osu_Downloader.Windows
 
         private void HideDownloads(object sender, MouseButtonEventArgs e)
         {
+            UpdateLayout();
+
             if (DownloadsPanel.Margin.Right != 0) return;
             if (e == null ||
-                (string)((FrameworkElement)VisualTreeHelper.HitTest(this, e.GetPosition(this))
-                                                           .VisualHit).Tag == "_D_") return;
+                e.GetPosition(this).X > ActualWidth - 300) return;
 
             Storyboard sb = FindResource("HideDownloadsAnimation") as Storyboard;
             Storyboard.SetTarget(sb, DownloadsPanel);
 
             sb.Begin();
+        }
+        
+        public void RefreshDownloads()
+        {
+            DownloadsList.Items.Refresh();
         }
 
         private void ChangeWindowState(object sender, RoutedEventArgs e)
@@ -125,6 +163,18 @@ namespace osu_Downloader.Windows
             Close();
         }
 
+        private void OnDownloadProgress(object sender, Download d)
+        {
+            Downloads.Where(w => w.Beatmap.ID == d.Beatmap.ID)
+                     .FirstOrDefault()
+                     .Progress = d.Progress;
+        }
+
+        private void OnDownloaded(object sender, Download d)
+        {
+            Downloads.Remove(d);
+        }
+
         private void OnKeyDown(object sender, KeyEventArgs e)
         {
             if (e.Key != Key.Enter) return;
@@ -135,6 +185,11 @@ namespace osu_Downloader.Windows
         private void OnPropertyChanged(string name)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
+        }
+
+        public static MainWindow GetInstance()
+        {
+            return instance;
         }
     }
 }

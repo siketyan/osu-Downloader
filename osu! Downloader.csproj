@@ -92,6 +92,8 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Utilities\Config.cs" />
+    <Compile Include="Utilities\Downloader.cs" />
+    <Compile Include="Utilities\CookieWebClient.cs" />
     <Compile Include="Windows\LoginWindow.xaml.cs">
       <DependentUpon>LoginWindow.xaml</DependentUpon>
     </Compile>
