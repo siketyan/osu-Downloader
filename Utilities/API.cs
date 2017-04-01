@@ -150,17 +150,17 @@ namespace osu_Downloader.Utilities
         public Beatmap[] Search(string query,
                                 GameModeSearchOption mode = GameModeSearchOption.Osu,
                                 RankStatusSearchOption status = RankStatusSearchOption.RankedAndApproved,
-                                GenreSearchOption? genre = null,
-                                LanguageSearchOption? language = null,
-                                ExtraSearchOption? extra = null)
+                                GenreSearchOption genre = GenreSearchOption.Any,
+                                LanguageSearchOption language = LanguageSearchOption.Any,
+                                ExtraSearchOption extra = ExtraSearchOption.Any)
         {
             var parameters = new Dictionary<string, string>();
             parameters.Add("q", query);
             parameters.Add("m", ((int)mode).ToString());
             parameters.Add("s", ((int)status).ToString());
-            if (genre != null) parameters.Add("g", ((int)genre).ToString());
-            if (language != null) parameters.Add("l", ((int)language).ToString());
-            if (extra != null) parameters.Add("e", ((ExtraSearchOption)extra).GetValue());
+            if (genre != GenreSearchOption.Any) parameters.Add("g", ((int)genre).ToString());
+            if (language != LanguageSearchOption.Any) parameters.Add("l", ((int)language).ToString());
+            if (extra != ExtraSearchOption.Any) parameters.Add("e", ((ExtraSearchOption)extra).GetValue());
 
             return JsonConvert.DeserializeObject<Beatmap[]>(
                        Get("beatmapsets/search", parameters)
@@ -170,9 +170,9 @@ namespace osu_Downloader.Utilities
         public async Task<Beatmap[]> SearchAsync(string query,
                                                   GameModeSearchOption mode = GameModeSearchOption.Osu,
                                                   RankStatusSearchOption status = RankStatusSearchOption.RankedAndApproved,
-                                                  GenreSearchOption? genre = null,
-                                                  LanguageSearchOption? language = null,
-                                                  ExtraSearchOption? extra = null)
+                                                  GenreSearchOption genre = GenreSearchOption.Any,
+                                                  LanguageSearchOption language = LanguageSearchOption.Any,
+                                                  ExtraSearchOption extra = ExtraSearchOption.Any)
         {
             return await Task.Run(() => Search(query, mode, status, genre, language, extra));
         }
@@ -201,6 +201,7 @@ namespace osu_Downloader.Utilities
 
     public enum GenreSearchOption
     {
+        Any = 0,
         Unspecified = 1,
         VideoGame = 2,
         Anime = 3,
@@ -214,6 +215,7 @@ namespace osu_Downloader.Utilities
 
     public enum LanguageSearchOption
     {
+        Any = 0,
         Other = 1,
         English = 2,
         Japanese = 3,
@@ -224,14 +226,15 @@ namespace osu_Downloader.Utilities
         German = 8,
         Swedish = 9,
         Spanish = 10,
-        Italian = 11,
+        Italian = 11
     }
 
     public enum ExtraSearchOption
     {
-        Video,
-        Storyboard,
-        Both
+        Any = 0,
+        Video = 1,
+        Storyboard = 2,
+        Both = 3
     }
 
     public static class ExtraSearchOptionExt

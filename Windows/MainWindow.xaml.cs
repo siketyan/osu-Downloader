@@ -1,5 +1,6 @@
 ﻿using osu_Downloader.Objects;
 using osu_Downloader.Utilities;
+using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.IO;
@@ -65,7 +66,19 @@ namespace osu_Downloader.Windows
             Loader.Visibility = Visibility.Visible;
             Result.Clear();
 
-            var beatmaps = await api.SearchAsync(Query.Text);
+            var beatmaps = await api.SearchAsync(
+                Query.Text,
+                GetEnum<GameModeSearchOption>(GameModeSelect.SelectedIndex),
+                GetEnum<RankStatusSearchOption>(RankStatusSelect.SelectedIndex),
+                GetEnum<GenreSearchOption>(
+                    GenreSelect.SelectedIndex > 7
+                        ? GenreSelect.SelectedIndex + 1
+                        : GenreSelect.SelectedIndex
+                ),
+                GetEnum<LanguageSearchOption>(LanguageSelect.SelectedIndex),
+                GetEnum<ExtraSearchOption>(ExtraSelect.SelectedIndex)
+            );
+
             foreach (var beatmap in beatmaps)
             {
                 Result.Add(beatmap);
@@ -185,6 +198,11 @@ namespace osu_Downloader.Windows
         private void OnPropertyChanged(string name)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
+        }
+
+        private static T GetEnum<T>(int i)
+        {
+            return (T)Enum.ToObject(typeof(T), i);
         }
 
         public static MainWindow GetInstance()

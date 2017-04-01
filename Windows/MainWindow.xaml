@@ -3,6 +3,8 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:sys="clr-namespace:System;assembly=mscorlib"
+        xmlns:util="clr-namespace:osu_Downloader.Utilities"
         xmlns:l="clr-namespace:Loaders;assembly=MrMitch.Loaders"
         mc:Ignorable="d" BorderBrush="#B17" BorderThickness="1"
         Title="osu! Downloader" Height="591" Width="1076"
@@ -23,6 +25,12 @@
                                 Timeline.DesiredFrameRate="60"
                                 To="0,0,-300,0" Duration="0:0:0.1" />
         </Storyboard>
+        <ObjectDataProvider x:Key="GameModeEnum" MethodName="GetValues" 
+                            ObjectType="{x:Type sys:Enum}">
+            <ObjectDataProvider.MethodParameters>
+                <x:Type TypeName="util:GameModeSearchOption"/>
+            </ObjectDataProvider.MethodParameters>
+        </ObjectDataProvider>
     </Window.Resources>
     
     <Grid>
@@ -54,12 +62,61 @@
                     <l:ChromeLoader x:Name="Loader" Foreground="#FFF"
                                     Width="32" Height="32" Visibility="Hidden" />
                 </Grid>
-                <ComboBox Background="Transparent" Width="72" Height="23"
-                          Margin="5,0" SelectedIndex="0">
-                    <ComboBoxItem>osu!</ComboBoxItem>
+                <ComboBox x:Name="GameModeSelect" Background="Transparent"
+                          Width="72" Height="23" Margin="5,0" SelectedIndex="0">
+                    <ComboBoxItem>Any / osu!</ComboBoxItem>
                     <ComboBoxItem>osu!taiko</ComboBoxItem>
                     <ComboBoxItem>osu!catch</ComboBoxItem>
                     <ComboBoxItem>osu!mania</ComboBoxItem>
+                </ComboBox>
+                <ComboBox x:Name="RankStatusSelect"  Background="Transparent"
+                          Width="128" Height="23" Margin="5,0" SelectedIndex="0">
+                    <ComboBoxItem>
+                        <![CDATA[Ranked & Approved]]>
+                    </ComboBoxItem>
+                    <ComboBoxItem>Approved</ComboBoxItem>
+                    <ComboBoxItem>Favourites</ComboBoxItem>
+                    <ComboBoxItem>Mod Requests</ComboBoxItem>
+                    <ComboBoxItem>Pending</ComboBoxItem>
+                    <ComboBoxItem>Graveyard</ComboBoxItem>
+                    <ComboBoxItem>MyMaps</ComboBoxItem>
+                    <ComboBoxItem>Any</ComboBoxItem>
+                    <ComboBoxItem>Loved</ComboBoxItem>
+                </ComboBox>
+                <ComboBox x:Name="GenreSelect" Background="Transparent"
+                          Width="84" Height="23" Margin="5,0" SelectedIndex="0">
+                    <ComboBoxItem>Any</ComboBoxItem>
+                    <ComboBoxItem>Unspecified</ComboBoxItem>
+                    <ComboBoxItem>VideoGame</ComboBoxItem>
+                    <ComboBoxItem>Anime</ComboBoxItem>
+                    <ComboBoxItem>Rock</ComboBoxItem>
+                    <ComboBoxItem>Pop</ComboBoxItem>
+                    <ComboBoxItem>Other</ComboBoxItem>
+                    <ComboBoxItem>Novelty</ComboBoxItem>
+                    <ComboBoxItem>HipHop</ComboBoxItem>
+                    <ComboBoxItem>Electronic</ComboBoxItem>
+                </ComboBox>
+                <ComboBox x:Name="LanguageSelect" Background="Transparent"
+                          Width="90" Height="23" Margin="5,0" SelectedIndex="0">
+                    <ComboBoxItem>Any</ComboBoxItem>
+                    <ComboBoxItem>Other</ComboBoxItem>
+                    <ComboBoxItem>English</ComboBoxItem>
+                    <ComboBoxItem>Japanese</ComboBoxItem>
+                    <ComboBoxItem>Chinese</ComboBoxItem>
+                    <ComboBoxItem>Instrumental</ComboBoxItem>
+                    <ComboBoxItem>Korean</ComboBoxItem>
+                    <ComboBoxItem>French</ComboBoxItem>
+                    <ComboBoxItem>German</ComboBoxItem>
+                    <ComboBoxItem>Swedish</ComboBoxItem>
+                    <ComboBoxItem>Spanish</ComboBoxItem>
+                    <ComboBoxItem>Italian</ComboBoxItem>
+                </ComboBox>
+                <ComboBox x:Name="ExtraSelect" Background="Transparent"
+                          Width="104" Height="23" Margin="5,0" SelectedIndex="0">
+                    <ComboBoxItem>Any</ComboBoxItem>
+                    <ComboBoxItem>Has Video</ComboBoxItem>
+                    <ComboBoxItem>Has Storyboard</ComboBoxItem>
+                    <ComboBoxItem>Has Both</ComboBoxItem>
                 </ComboBox>
 
                 <Button DockPanel.Dock="Right"  Template="{StaticResource IconButton}"
