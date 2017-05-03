@@ -1,4 +1,4 @@
-﻿<Window x:Class="osu_Downloader.Windows.MainWindow"
+﻿<Window
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -6,14 +6,12 @@
         xmlns:sys="clr-namespace:System;assembly=mscorlib"
         xmlns:util="clr-namespace:osu_Downloader.Utilities"
         xmlns:l="clr-namespace:Loaders;assembly=MrMitch.Loaders"
+        x:Class="osu_Downloader.Windows.MainWindow"
         mc:Ignorable="d" BorderBrush="#B17" BorderThickness="1"
         Title="osu! Downloader" Height="591" Width="1076"
         Icon="../Resources/downloader.ico" MinWidth="720"
         WindowStartupLocation="CenterScreen" MinHeight="360"
         PreviewMouseLeftButtonDown="HideDownloads">
-    <WindowChrome.WindowChrome>
-        <WindowChrome CaptionHeight="64" />
-    </WindowChrome.WindowChrome>
     <Window.Resources>
         <Storyboard x:Key="ShowDownloadsAnimation">
             <ThicknessAnimation Storyboard.TargetProperty="Margin"
@@ -26,7 +24,11 @@
                                 To="0,0,-300,0" Duration="0:0:0.1" />
         </Storyboard>
     </Window.Resources>
-    
+
+    <WindowChrome.WindowChrome>
+        <WindowChrome CaptionHeight="64" />
+    </WindowChrome.WindowChrome>
+
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="64" />
@@ -52,80 +54,78 @@
                 <Grid>
                     <Button x:Name="SearchButton" Template="{StaticResource IconButton}"
                             WindowChrome.IsHitTestVisibleInChrome="True" FontSize="14"
-                            Cursor="Hand" Click="Search" Margin="10"></Button>
+                            Cursor="Hand" Click="Search" Margin="10" Content="&#xF002;"/>
                     <l:ChromeLoader x:Name="Loader" Foreground="#FFF"
                                     Width="32" Height="32" Visibility="Hidden" />
                 </Grid>
                 <ComboBox x:Name="GameModeSelect" Background="Transparent"
                           Width="72" Height="23" Margin="5,0" SelectedIndex="0">
-                    <ComboBoxItem>Any / osu!</ComboBoxItem>
-                    <ComboBoxItem>osu!taiko</ComboBoxItem>
-                    <ComboBoxItem>osu!catch</ComboBoxItem>
-                    <ComboBoxItem>osu!mania</ComboBoxItem>
+                    <ComboBoxItem Content="Any / osu!"/>
+                    <ComboBoxItem Content="osu!taiko"/>
+                    <ComboBoxItem Content="osu!catch"/>
+                    <ComboBoxItem Content="osu!mania"/>
                 </ComboBox>
                 <ComboBox x:Name="RankStatusSelect"  Background="Transparent"
                           Width="128" Height="23" Margin="5,0" SelectedIndex="0">
-                    <ComboBoxItem>
-                        <![CDATA[Ranked & Approved]]>
-                    </ComboBoxItem>
-                    <ComboBoxItem>Approved</ComboBoxItem>
-                    <ComboBoxItem>Favourites</ComboBoxItem>
-                    <ComboBoxItem>Mod Requests</ComboBoxItem>
-                    <ComboBoxItem>Pending</ComboBoxItem>
-                    <ComboBoxItem>Graveyard</ComboBoxItem>
-                    <ComboBoxItem>MyMaps</ComboBoxItem>
-                    <ComboBoxItem>Any</ComboBoxItem>
-                    <ComboBoxItem>Loved</ComboBoxItem>
+                    <ComboBoxItem Content="Ranked &amp; Approved"/>
+                    <ComboBoxItem Content="Approved"/>
+                    <ComboBoxItem Content="Favourites"/>
+                    <ComboBoxItem Content="Mod Requests"/>
+                    <ComboBoxItem Content="Pending"/>
+                    <ComboBoxItem Content="Graveyard"/>
+                    <ComboBoxItem Content="MyMaps"/>
+                    <ComboBoxItem Content="Any"/>
+                    <ComboBoxItem Content="Loved"/>
                 </ComboBox>
                 <ComboBox x:Name="GenreSelect" Background="Transparent"
                           Width="84" Height="23" Margin="5,0" SelectedIndex="0">
-                    <ComboBoxItem>Any</ComboBoxItem>
-                    <ComboBoxItem>Unspecified</ComboBoxItem>
-                    <ComboBoxItem>VideoGame</ComboBoxItem>
-                    <ComboBoxItem>Anime</ComboBoxItem>
-                    <ComboBoxItem>Rock</ComboBoxItem>
-                    <ComboBoxItem>Pop</ComboBoxItem>
-                    <ComboBoxItem>Other</ComboBoxItem>
-                    <ComboBoxItem>Novelty</ComboBoxItem>
-                    <ComboBoxItem>HipHop</ComboBoxItem>
-                    <ComboBoxItem>Electronic</ComboBoxItem>
+                    <ComboBoxItem Content="Any"/>
+                    <ComboBoxItem Content="Unspecified"/>
+                    <ComboBoxItem Content="VideoGame"/>
+                    <ComboBoxItem Content="Anime"/>
+                    <ComboBoxItem Content="Rock"/>
+                    <ComboBoxItem Content="Pop"/>
+                    <ComboBoxItem Content="Other"/>
+                    <ComboBoxItem Content="Novelty"/>
+                    <ComboBoxItem Content="HipHop"/>
+                    <ComboBoxItem Content="Electronic"/>
                 </ComboBox>
                 <ComboBox x:Name="LanguageSelect" Background="Transparent"
                           Width="90" Height="23" Margin="5,0" SelectedIndex="0">
-                    <ComboBoxItem>Any</ComboBoxItem>
-                    <ComboBoxItem>Other</ComboBoxItem>
-                    <ComboBoxItem>English</ComboBoxItem>
-                    <ComboBoxItem>Japanese</ComboBoxItem>
-                    <ComboBoxItem>Chinese</ComboBoxItem>
-                    <ComboBoxItem>Instrumental</ComboBoxItem>
-                    <ComboBoxItem>Korean</ComboBoxItem>
-                    <ComboBoxItem>French</ComboBoxItem>
-                    <ComboBoxItem>German</ComboBoxItem>
-                    <ComboBoxItem>Swedish</ComboBoxItem>
-                    <ComboBoxItem>Spanish</ComboBoxItem>
-                    <ComboBoxItem>Italian</ComboBoxItem>
+                    <ComboBoxItem Content="Any"/>
+                    <ComboBoxItem Content="Other"/>
+                    <ComboBoxItem Content="English"/>
+                    <ComboBoxItem Content="Japanese"/>
+                    <ComboBoxItem Content="Chinese"/>
+                    <ComboBoxItem Content="Instrumental"/>
+                    <ComboBoxItem Content="Korean"/>
+                    <ComboBoxItem Content="French"/>
+                    <ComboBoxItem Content="German"/>
+                    <ComboBoxItem Content="Swedish"/>
+                    <ComboBoxItem Content="Spanish"/>
+                    <ComboBoxItem Content="Italian"/>
                 </ComboBox>
                 <ComboBox x:Name="ExtraSelect" Background="Transparent"
                           Width="104" Height="23" Margin="5,0" SelectedIndex="0">
-                    <ComboBoxItem>Any</ComboBoxItem>
-                    <ComboBoxItem>Has Video</ComboBoxItem>
-                    <ComboBoxItem>Has Storyboard</ComboBoxItem>
-                    <ComboBoxItem>Has Both</ComboBoxItem>
+                    <ComboBoxItem Content="Any"/>
+                    <ComboBoxItem Content="Has Video"/>
+                    <ComboBoxItem Content="Has Storyboard"/>
+                    <ComboBoxItem Content="Has Both"/>
                 </ComboBox>
 
                 <Button DockPanel.Dock="Right"  Template="{StaticResource IconButton}"
                         WindowChrome.IsHitTestVisibleInChrome="True" FontSize="14"
-                        Cursor="Hand" Click="CloseWindow" Margin="2,0,10,0"></Button>
+                        Cursor="Hand" Click="CloseWindow" Margin="2,0,10,0" Content="&#xF00D;"/>
                 <Button DockPanel.Dock="Right"  Template="{StaticResource IconButton}"
                         WindowChrome.IsHitTestVisibleInChrome="True" FontSize="11"
-                        Cursor="Hand" Click="ChangeWindowState" Margin="2,1,1,0"></Button>
+                        Cursor="Hand" Click="ChangeWindowState" Margin="2,1,1,0" Content="&#xF2D0;"/>
                 <Button DockPanel.Dock="Right"  Template="{StaticResource IconButton}"
                         WindowChrome.IsHitTestVisibleInChrome="True" FontSize="9"
-                        Cursor="Hand" Click="MinimizeWindow" Margin="2"></Button>
+                        Cursor="Hand" Click="MinimizeWindow" Margin="2" Content="&#xF2D1;"/>
 
                 <Button DockPanel.Dock="Right"  Template="{StaticResource IconButton}"
                         WindowChrome.IsHitTestVisibleInChrome="True" FontSize="18"
-                        Cursor="Hand" Click="ShowDownloads" Margin="2,0,15,0"></Button>
+                        Cursor="Hand" Click="ShowDownloads" Margin="2,0,15,0" Content="&#xF019;"/>
             </DockPanel>
         </Grid>
 
@@ -140,7 +140,7 @@
             </Grid.ColumnDefinitions>
 
             <DockPanel Grid.Column="0">
-                <Label DockPanel.Dock="Top" Padding="20,15,0,5" FontSize="18">Search Result</Label>
+                <Label DockPanel.Dock="Top" Padding="20,15,0,5" FontSize="18" Content="Search Result"/>
                 <ScrollViewer Style="{StaticResource CustomScrollViewerStyle}"
                               HorizontalScrollBarVisibility="Disabled"
                               VerticalScrollBarVisibility="Visible"
@@ -148,13 +148,13 @@
                     <ListBox Background="Transparent" BorderThickness="0"
                              HorizontalContentAlignment="Stretch" ItemsSource="{Binding Result}">
                         <ListBox.Template>
-                            <ControlTemplate TargetType="ItemsControl">
+                            <ControlTemplate TargetType="{x:Type ItemsControl}">
                                 <ItemsPresenter Margin="15,0,5,0" />
                             </ControlTemplate>
                         </ListBox.Template>
                         <ListBox.ItemsPanel>
                             <ItemsPanelTemplate>
-                                <VirtualizingStackPanel VirtualizationMode="Recycling" IsVirtualizing="True" />
+                                <VirtualizingStackPanel VirtualizingPanel.VirtualizationMode="Recycling" VirtualizingPanel.IsVirtualizing="True" />
                             </ItemsPanelTemplate>
                         </ListBox.ItemsPanel>
                         <ListBox.ItemTemplate>
@@ -185,13 +185,13 @@
                                             </Label>
                                             <StackPanel Orientation="Horizontal"  Margin="2">
                                                 <Label Padding="0" Content="{Binding Artist}" />
-                                                <Label Padding="0">/</Label>
+                                                <Label Padding="0" Content="/"/>
                                                 <Label Padding="0" Content="{Binding Creator}" />
                                             </StackPanel>
                                             <StackPanel Orientation="Horizontal" Margin="2,3,2,4">
-                                                <Label Padding="0">▶</Label>
+                                                <Label Padding="0" Content="▶"/>
                                                 <Label Padding="0" Content="{Binding PlayCount}" />
-                                                <Label Padding="5,0,0,0">♥</Label>
+                                                <Label Padding="5,0,0,0" Content="♥"/>
                                                 <Label Padding="0" Content="{Binding FavouriteCount}" />
                                             </StackPanel>
                                         </StackPanel>
@@ -235,41 +235,31 @@
                                 </DockPanel.Effect>
 
                                 <Button Template="{StaticResource IconButton}" Cursor="Hand"
-                                        FontSize="32" VerticalAlignment="Top"></Button>
+                                        FontSize="32" VerticalAlignment="Top" Content="&#xF04B;"/>
                                 <Button x:Name="NoVideo" DockPanel.Dock="Right" FontSize="32"
                                         Template="{StaticResource IconButton}" Tag="_N_"
                                         VerticalAlignment="Top" Cursor="Hand" Click="Download">
-                                    <TextBlock TextAlignment="Center">
-                                        <Run FontFamily="../Resources/#FontAwesome"
-                                             Foreground="#FFF"></Run>
-                                        <LineBreak />
-                                        <Run FontFamily="../Resources/#Exo 2.0"
-                                             Foreground="#FFF" FontSize="12">No Video</Run>
-                                    </TextBlock>
+                                    <TextBlock TextAlignment="Center"><Run FontFamily="../Resources/#FontAwesome"
+                                             Foreground="#FFF" Text="&#xF019;"/><LineBreak /><Run FontFamily="../Resources/#Exo 2.0"
+                                             Foreground="#FFF" FontSize="12" Text="No Video"/></TextBlock>
                                 </Button>
                                 <Button DockPanel.Dock="Right" FontSize="32" Cursor="Hand"
                                         Template="{StaticResource IconButton}"
-                                        VerticalAlignment="Top" Click="Download"></Button>
+                                        VerticalAlignment="Top" Click="Download" Content="&#xF019;"/>
                             </DockPanel>
                         </Grid>
                         <StackPanel Margin="15,0">
                             <Label FontSize="22" Content="{Binding Selected.Title}" />
                             <Label FontSize="18"  Content="{Binding Selected.Artist}" Padding="5,0,5,5" />
                             <Label Padding="5,5,5,3">
-                                <TextBlock>
-                                    <Run>Creator: </Run>
-                                    <Run Text="{Binding Selected.Creator}" />
-                                </TextBlock>
+                                <TextBlock><Run Text="Creator:"/><Run Text=" "/><Run Text="{Binding Selected.Creator}" /></TextBlock>
                             </Label>
                             <Label Padding="5,3">
-                                <TextBlock>
-                                    <Run>Source: </Run>
-                                    <Run Text="{Binding Selected.Source}" />
-                                </TextBlock>
+                                <TextBlock><Run Text="Source:"/><Run Text=" "/><Run Text="{Binding Selected.Source}" /></TextBlock>
                             </Label>
                             <Label Padding="5,3">
                                 <DockPanel>
-                                    <TextBlock Margin="0,0,4,0">Tags:</TextBlock>
+                                    <TextBlock Margin="0,0,4,0"><Run Text="Tags:"/></TextBlock>
                                     <TextBlock Text="{Binding Selected.Tags}" TextWrapping="Wrap" />
                                 </DockPanel>
                             </Label>
@@ -283,7 +273,7 @@
                 Width="300" HorizontalAlignment="Right" Margin="0,0,-300,0">
             <DockPanel Tag="_D_">
                 <Label DockPanel.Dock="Top" Foreground="#FFF"
-                       Padding="20,15,0,5" FontSize="18">Downloads</Label>
+                       Padding="20,15,0,5" FontSize="18" Content="Downloads"/>
                 <ScrollViewer Style="{StaticResource WhiteScrollViewerStyle}"
                               HorizontalScrollBarVisibility="Disabled"
                               VerticalScrollBarVisibility="Visible"
@@ -297,20 +287,20 @@
                             </Style>
                         </ListBox.Resources>
                         <ListBox.Template>
-                            <ControlTemplate TargetType="ItemsControl">
+                            <ControlTemplate TargetType="{x:Type ItemsControl}">
                                 <ItemsPresenter Margin="15,5,5,0" />
                             </ControlTemplate>
                         </ListBox.Template>
                         <ListBox.ItemsPanel>
                             <ItemsPanelTemplate>
-                                <VirtualizingStackPanel VirtualizationMode="Recycling" IsVirtualizing="True" />
+                                <VirtualizingStackPanel VirtualizingPanel.VirtualizationMode="Recycling" VirtualizingPanel.IsVirtualizing="True" />
                             </ItemsPanelTemplate>
                         </ListBox.ItemsPanel>
                         <ListBox.ItemTemplate>
                             <DataTemplate>
                                 <DockPanel>
                                     <Button Template="{StaticResource IconButton}" Cursor="Hand" Tag="{Binding Beatmap.ID}"
-                                            FontSize="14" Margin="0,0,5,0"  Click="CancelDownload"></Button>
+                                            FontSize="14" Margin="0,0,5,0"  Click="CancelDownload" Content="&#xF04D;"/>
                                     <StackPanel Margin="0,5" Tag="_D_">
                                         <Label Padding="0" Content="{Binding Beatmap.Title}" />
                                         <StackPanel Orientation="Horizontal">
