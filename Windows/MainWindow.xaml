@@ -25,12 +25,6 @@
                                 Timeline.DesiredFrameRate="60"
                                 To="0,0,-300,0" Duration="0:0:0.1" />
         </Storyboard>
-        <ObjectDataProvider x:Key="GameModeEnum" MethodName="GetValues" 
-                            ObjectType="{x:Type sys:Enum}">
-            <ObjectDataProvider.MethodParameters>
-                <x:Type TypeName="util:GameModeSearchOption"/>
-            </ObjectDataProvider.MethodParameters>
-        </ObjectDataProvider>
     </Window.Resources>
     
     <Grid>
@@ -165,7 +159,7 @@
                         </ListBox.ItemsPanel>
                         <ListBox.ItemTemplate>
                             <DataTemplate>
-                                <Border Background="#FFF" Margin="0,3" Tag="{Binding ID}"
+                                <Border Background="#FFF" Height="70" Margin="0,3" Tag="{Binding ID}"
                                         MouseLeftButtonDown="SelectBeatmap" Cursor="Hand">
                                     <Border.Effect>
                                         <DropShadowEffect Color="#CC999393" Opacity="0.4" Direction="0" ShadowDepth="0" BlurRadius="10" />
@@ -213,7 +207,8 @@
                           Style="{StaticResource CustomScrollViewerStyle}"
                           HorizontalScrollBarVisibility="Disabled"
                           VerticalScrollBarVisibility="Visible">
-                <Border Grid.Column="1" Background="#FFF" Margin="5,10" Padding="0,0,0,15">
+                <Border Grid.Column="1" Background="#FFF" Margin="5,10" Padding="0,0,0,15"
+                        Width="700" HorizontalAlignment="Center">
                     <Border.Effect>
                         <DropShadowEffect Color="#CC999393" Opacity="0.4"
                                           Direction="0" ShadowDepth="0" BlurRadius="10" />
@@ -221,7 +216,7 @@
 
                     <StackPanel>
                         <Grid>
-                            <Image Source="{Binding Selected.Covers.Card2xUrl}">
+                            <Image Height="175" Source="{Binding Selected.Covers.Card2xUrl}">
                                 <Image.OpacityMask>
                                     <LinearGradientBrush>
                                         <LinearGradientBrush.Transform>
