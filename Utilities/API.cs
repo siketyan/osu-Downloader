@@ -14,8 +14,7 @@ namespace osu_Downloader.Utilities
 {
     public class API
     {
-        private const string baseURL = "https://new.ppy.sh/";
-        private const string baseURLOld = "https://osu.ppy.sh/";
+        private const string baseURL = "https://osu.ppy.sh/";
 
         public string SessionID { get; private set; }
         public string DownloadSessionID { get; private set; }
@@ -102,7 +101,7 @@ namespace osu_Downloader.Utilities
         public static LoginResponse Login(string username, string password)
         {
             var response = Post(
-                               baseURL + "users/login",
+                               baseURL + "session",
                                new Dictionary<string, string>
                                {
                                    {"username", username},
@@ -134,7 +133,7 @@ namespace osu_Downloader.Utilities
                                  .Where(a => a.Name == "phpbb3_2cjk5_sid")
                                  .FirstOrDefault()
                                  .Value;
-
+            
             var data = JsonConvert.DeserializeObject<LoginResponse>(response.Item1);
             data.SessionID = sessionID;
             data.DownloadSessionID = dSessionID;
